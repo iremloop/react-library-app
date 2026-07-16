@@ -1,0 +1,41 @@
+{
+    "navigation": {
+      "books": "Kitaplar",
+      "loans": "Ödünçler"
+    },
+    "common": {
+      "close": "Kapat",
+      "cancel": "İptal",
+      "delete": "Sil",
+      "edit": "Düzenle",
+      "loading": "Yükleniyor..."
+    },
+    "books": {
+      "title": "Kütüphanem",
+      "addButton": "Kitap Ekle",
+      "addTitle": "Yeni Kitap Ekle",
+      "editTitle": "Kitabı Düzenle",
+      "saveChanges": "Değişiklikleri Kaydet",
+      "titleLabel": "Kitap adı",
+      "titlePlaceholder": "Kitap adını yazın",
+      "authorLabel": "Yazar adı",
+      "authorPlaceholder": "Yazar adını yazın",
+      "titleRequired": "Kitap adı zorunludur.",
+      "authorRequired": "Yazar adı zorunludur.",
+      "deleteTitle": "Kitabı Sil",
+      "deleteMessage": "\"{{title}}\" kitabını silmek istediğinize emin misiniz?",
+      "empty": "Kitap bulunamadı."
+    },
+    "loans": {
+      "title": "Ödünç İşlemleri",
+      "book": "Kitap",
+      "borrower": "Ödünç Alan",
+      "dueDate": "Teslim Tarihi",
+      "status": "Durum",
+      "empty": "Ödünç kaydı bulunamadı.",
+      "statusValues": {
+        "returned": "Teslim edildi",
+        "notReturned": "Teslim edilmedi"
+      }
+    }
+  }
