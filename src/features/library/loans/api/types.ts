@@ -1,8 +1,8 @@
 export type LoanDto = {
-    id: string;
-    bookId: string;
-    bookTitle: string;
-    borrower: string;
-    dueDate: string;
-    returned: boolean;
-  };
+  id: number;
+  book_id: number;
+  borrower: string;
+  loan_date: string;
+  planned_return_date: string;
+  actual_return_date: string | null;
+};

@@ -1,3 +1,11 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 type ConfirmDialogProps = {
@@ -6,6 +14,8 @@ type ConfirmDialogProps = {
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
+  confirmText?: string;
+  confirmColor?: "primary" | "error";
 };
 
 function ConfirmDialog({
@@ -14,37 +24,86 @@ function ConfirmDialog({
   message,
   onConfirm,
   onCancel,
+  confirmText,
+  confirmColor = "error",
 }: ConfirmDialogProps) {
   const { t } = useTranslation();
 
-  if (!open) {
-    return null;
-  }
-
   return (
-    <div className="dialog-overlay">
-      <div className="dialog-box">
-        <h2>{title}</h2>
+    <Dialog
+      open={open}
+      onClose={onCancel}
+      fullWidth
+      maxWidth="sm"
+      slotProps={{
+        paper: {
+          sx: {
+            borderRadius: 3,
+            padding: 1,
+          },
+        },
+      }}
+    >
+      <DialogTitle
+        sx={{
+          fontSize: 26,
+          fontWeight: 750,
+          paddingBottom: 1,
+        }}
+      >
+        {title}
+      </DialogTitle>
 
-        <p>{message}</p>
+      <DialogContent>
+        <Typography
+          sx={{
+            paddingTop: 1,
+            color: "text.primary",
+            fontSize: 17,
+            lineHeight: 1.6,
+          }}
+        >
+          {message}
+        </Typography>
+      </DialogContent>
 
-        <div className="form-actions">
-          <button
-            className="secondary-button"
-            onClick={onCancel}
-          >
-            {t("common.cancel")}
-          </button>
+      <DialogActions
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: 1.5,
+          padding: 3,
+          paddingTop: 1,
+        }}
+      >
+        <Button
+          variant="outlined"
+          onClick={onCancel}
+          sx={{
+            minWidth: 90,
+            borderRadius: 2,
+            fontWeight: 650,
+            textTransform: "none",
+          }}
+        >
+          {t("common.cancel")}
+        </Button>
 
-          <button
-            className="delete-button"
-            onClick={onConfirm}
-          >
-            {t("common.delete")}
-          </button>
-        </div>
-      </div>
-    </div>
+        <Button
+          variant="contained"
+          color={confirmColor}
+          onClick={onConfirm}
+          sx={{
+            minWidth: 90,
+            borderRadius: 2,
+            fontWeight: 650,
+            textTransform: "none",
+          }}
+        >
+          {confirmText ?? t("common.delete")}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

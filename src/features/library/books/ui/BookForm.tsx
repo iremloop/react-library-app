@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Box, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,13 +15,11 @@ type BookFormData = {
 type BookFormProps = {
   initialBook?: Book;
   onSubmit: (title: string, author: string) => void;
-  onClose: () => void;
 };
 
 function BookForm({
   initialBook,
   onSubmit,
-  onClose,
 }: BookFormProps) {
   const { t } = useTranslation();
 
@@ -99,24 +98,28 @@ function BookForm({
         </span>
       )}
 
-      <div className="form-actions">
-        <button
-          className="primary-button"
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: 3,
+        }}
+      >
+        <Button
           type="submit"
+          variant="contained"
+          sx={{
+            minWidth: 170,
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 650,
+          }}
         >
           {initialBook
             ? t("books.saveChanges")
             : t("books.addButton")}
-        </button>
-
-        <button
-          className="secondary-button"
-          type="button"
-          onClick={onClose}
-        >
-          {t("common.close")}
-        </button>
-      </div>
+        </Button>
+      </Box>
     </form>
   );
 }

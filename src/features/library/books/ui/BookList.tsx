@@ -1,11 +1,13 @@
+import {
+  Box,
+  Button,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import DataTable, {
-  type DataTableColumn,
-} from "../../../../shared/ui/DataTable";
-import TableState from "../../../../shared/ui/TableState";
-
 import type { Book } from "../model/types";
+
+import DataTable from "../../../../shared/ui/DataTable";
+import TableState from "../../../../shared/ui/TableState";
 
 type BookListProps = {
   books: Book[];
@@ -20,36 +22,59 @@ function BookList({
 }: BookListProps) {
   const { t } = useTranslation();
 
-  const columns: DataTableColumn<Book>[] = [
+  const columns = [
     {
       key: "title",
       header: t("books.titleLabel"),
-      render: (book) => book.title,
+      render: (book: Book) => book.title,
     },
     {
       key: "author",
       header: t("books.authorLabel"),
-      render: (book) => book.author,
+      render: (book: Book) => book.author,
     },
     {
       key: "actions",
-      header: "",
-      render: (book) => (
-        <div className="book-actions">
-          <button
-            className="primary-button"
+      header: t("common.actions"),
+      render: (book: Book) => (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: 1.5,
+            flexWrap: "wrap",
+          }}
+        >
+          <Button
+            size="small"
+            variant="contained"
             onClick={() => onEditBook(book)}
+            sx={{
+              minWidth: 88,
+              borderRadius: 2,
+              textTransform: "none",
+            }}
           >
             {t("common.edit")}
-          </button>
+          </Button>
 
-          <button
-            className="delete-button"
-            onClick={() => onDeleteBook(book.id)}
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            onClick={() =>
+              onDeleteBook(book.id)
+            }
+            sx={{
+              minWidth: 72,
+              borderRadius: 2,
+              textTransform: "none",
+            }}
           >
             {t("common.delete")}
-          </button>
-        </div>
+          </Button>
+        </Box>
       ),
     },
   ];

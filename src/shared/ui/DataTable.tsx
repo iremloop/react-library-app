@@ -18,7 +18,12 @@ function DataTable<T>({
   getRowKey,
 }: DataTableProps<T>) {
   return (
-    <div className="data-table-wrapper">
+    <div
+      className="data-table-wrapper"
+      role="region"
+      aria-label="Veri tablosu"
+      tabIndex={0}
+    >
       <table className="data-table">
         <thead>
           <tr>
@@ -34,7 +39,10 @@ function DataTable<T>({
           {data.map((item) => (
             <tr key={getRowKey(item)}>
               {columns.map((column) => (
-                <td key={column.key}>
+                <td
+                  key={column.key}
+                  data-label={column.header}
+                >
                   {column.render(item)}
                 </td>
               ))}

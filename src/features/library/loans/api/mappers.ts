@@ -4,11 +4,12 @@ import type { Loan } from "../model/types";
 export function toLoan(dto: LoanDto): Loan {
   return {
     id: dto.id,
-    bookTitle: dto.bookTitle,
+    bookId: dto.book_id,
     borrower: dto.borrower,
-    dueDate: dto.dueDate,
-    statusLabelKey: dto.returned
-      ? "loans.status.returned"
-      : "loans.status.notReturned",
+    loanDate: dto.loan_date,
+    plannedReturnDate:
+      dto.planned_return_date,
+    actualReturnDate:
+      dto.actual_return_date ?? "",
   };
 }

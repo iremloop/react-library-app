@@ -1,41 +1,74 @@
 {
-    "navigation": {
-      "books": "Books",
-      "loans": "Loans"
-    },
-    "common": {
-      "close": "Close",
-      "cancel": "Cancel",
-      "delete": "Delete",
-      "edit": "Edit",
-      "loading": "Loading..."
-    },
-    "books": {
-      "title": "My Library",
-      "addButton": "Add Book",
-      "addTitle": "Add New Book",
-      "editTitle": "Edit Book",
-      "saveChanges": "Save Changes",
-      "titleLabel": "Book title",
-      "titlePlaceholder": "Enter the book title",
-      "authorLabel": "Author",
-      "authorPlaceholder": "Enter the author name",
-      "titleRequired": "Book title is required.",
-      "authorRequired": "Author name is required.",
-      "deleteTitle": "Delete Book",
-      "deleteMessage": "Are you sure you want to delete \"{{title}}\"?",
-      "empty": "No books found."
-    },
-    "loans": {
-      "title": "Loan Records",
-      "book": "Book",
-      "borrower": "Borrower",
-      "dueDate": "Due Date",
-      "status": "Status",
-      "empty": "No loan records found.",
-      "statusValues": {
-        "returned": "Returned",
-        "notReturned": "Not returned"
-      }
+  "app": {
+  "title": "Library Management System",
+  "subtitle": "Manage books and loan records easily."
+},
+  "navigation": {
+    "books": "Books",
+    "loans": "Loans"
+  },
+  "common": {
+    "actions": "Actions",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "An error occurred."
+  },
+ "books": {
+  "title": "Books",
+  "addButton": "Add New Book",
+  "addTitle": "Add New Book",
+  "editTitle": "Edit Book",
+  "titleLabel": "Book Title",
+  "authorLabel": "Author",
+  "titlePlaceholder": "Enter the book title",
+  "authorPlaceholder": "Enter the author name",
+  "titleRequired": "Book title is required.",
+  "authorRequired": "Author name is required.",
+  "saveChanges": "Save Changes",
+  "empty": "No books found.",
+  "deleteTitle": "Delete Book",
+  "deleteMessage": "Are you sure you want to delete \"{{title}}\"?"
+},
+  "loans": {
+    "title": "Loan Operations",
+    "activeTableTitle": "Books and Active Loans",
+    "returnedTableTitle": "Returned Books",
+    "book": "Book",
+    "borrower": "Borrower",
+    "loanDate": "Loan Date",
+    "plannedReturnDate": "Planned Return Date",
+    "actualReturnDate": "Actual Return Date",
+    "actualReturnDateHint": "Leave this field empty if the book has not been returned.",
+    "status": "Status",
+    "result": "Return Result",
+    "create": "Loan Book",
+    "edit": "Edit Loan",
+    "borrowerRequired": "Borrower name is required.",
+    "loanDateRequired": "Loan date is required.",
+    "plannedReturnDateRequired": "Planned return date is required.",
+    "plannedDateBeforeLoanDate": "The planned return date cannot be earlier than the loan date.",
+    "actualDateBeforeLoanDate": "The actual return date cannot be earlier than the loan date.",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search by book, author or borrower...",
+    "noSearchResults": "No records match your search.",
+    "noReturnedLoans": "There are no returned loan records yet.",
+    "daysOverdue_one": "{{count}} day overdue",
+    "daysOverdue_other": "{{count}} days overdue",
+    "returnedLate_one": "Returned {{count}} day late",
+    "returnedLate_other": "Returned {{count}} days late",
+    "returnedOnTime": "Returned on time",
+    "riskyBorrowerTitle": "Late Return History Warning",
+    "riskyBorrowerMessage": "{{borrower}} has previously returned {{count}} books late. Do you still want to loan \"{{book}}\"?",
+    "statusValues": {
+      "borrowed": "On Loan",
+      "available": "Available",
+      "returned": "Returned"
     }
   }
+}

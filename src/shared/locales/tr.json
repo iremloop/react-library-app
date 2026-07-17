@@ -1,41 +1,75 @@
 {
-    "navigation": {
-      "books": "Kitaplar",
-      "loans": "Ödünçler"
-    },
-    "common": {
-      "close": "Kapat",
-      "cancel": "İptal",
-      "delete": "Sil",
-      "edit": "Düzenle",
-      "loading": "Yükleniyor..."
-    },
-    "books": {
-      "title": "Kütüphanem",
-      "addButton": "Kitap Ekle",
-      "addTitle": "Yeni Kitap Ekle",
-      "editTitle": "Kitabı Düzenle",
-      "saveChanges": "Değişiklikleri Kaydet",
-      "titleLabel": "Kitap adı",
-      "titlePlaceholder": "Kitap adını yazın",
-      "authorLabel": "Yazar adı",
-      "authorPlaceholder": "Yazar adını yazın",
-      "titleRequired": "Kitap adı zorunludur.",
-      "authorRequired": "Yazar adı zorunludur.",
-      "deleteTitle": "Kitabı Sil",
-      "deleteMessage": "\"{{title}}\" kitabını silmek istediğinize emin misiniz?",
-      "empty": "Kitap bulunamadı."
-    },
-    "loans": {
-      "title": "Ödünç İşlemleri",
-      "book": "Kitap",
-      "borrower": "Ödünç Alan",
-      "dueDate": "Teslim Tarihi",
-      "status": "Durum",
-      "empty": "Ödünç kaydı bulunamadı.",
-      "statusValues": {
-        "returned": "Teslim edildi",
-        "notReturned": "Teslim edilmedi"
-      }
+  "app": {
+  "title": "Kütüphane Yönetim Sistemi",
+  "subtitle": "Kitapları ve ödünç işlemlerini kolayca yönetin."
+},
+  "navigation": {
+    "books": "Kitaplar",
+    "loans": "Ödünçler"
+  },
+  "common": {
+    "actions": "İşlemler",
+    "add": "Ekle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "save": "Kaydet",
+    "cancel": "Vazgeç",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu."
+  },
+  "books": {
+  "title": "Kitaplar",
+  "addButton": "Yeni Kitap Ekle",
+  "addTitle": "Yeni Kitap Ekle",
+  "editTitle": "Kitabı Düzenle",
+  "titleLabel": "Kitap Adı",
+  "authorLabel": "Yazar",
+  "titlePlaceholder": "Kitap adını girin",
+  "authorPlaceholder": "Yazar adını girin",
+  "titleRequired": "Kitap adı zorunludur.",
+  "authorRequired": "Yazar adı zorunludur.",
+  "saveChanges": "Değişiklikleri Kaydet",
+  "empty": "Kitap bulunamadı.",
+  "deleteTitle": "Kitabı Sil",
+  "deleteMessage": "\"{{title}}\" kitabını silmek istediğinize emin misiniz?"
+}
+  ,
+  "loans": {
+    "title": "Ödünç İşlemleri",
+    "activeTableTitle": "Kitaplar ve Aktif Ödünçler",
+    "returnedTableTitle": "Teslim Edilen Kitaplar",
+    "book": "Kitap",
+    "borrower": "Ödünç Alan",
+    "loanDate": "Ödünç Tarihi",
+    "plannedReturnDate": "Planlanan Teslim Tarihi",
+    "actualReturnDate": "Gerçek Teslim Tarihi",
+    "actualReturnDateHint": "Kitap teslim edilmediyse bu alanı boş bırakın.",
+    "status": "Durum",
+    "result": "Teslim Sonucu",
+    "create": "Ödünç Ver",
+    "edit": "Ödünç Bilgisini Düzenle",
+    "borrowerRequired": "Ödünç alan kişinin adı zorunludur.",
+    "loanDateRequired": "Ödünç tarihi zorunludur.",
+    "plannedReturnDateRequired": "Planlanan teslim tarihi zorunludur.",
+    "plannedDateBeforeLoanDate": "Planlanan teslim tarihi, ödünç tarihinden önce olamaz.",
+    "actualDateBeforeLoanDate": "Gerçek teslim tarihi, ödünç tarihinden önce olamaz.",
+    "searchLabel": "Arama",
+    "searchPlaceholder": "Kitap, yazar veya ödünç alan kişi ara...",
+    "noSearchResults": "Aramanızla eşleşen kayıt bulunamadı.",
+    "noReturnedLoans": "Henüz teslim edilmiş ödünç kaydı bulunmuyor.",
+    "daysOverdue_one": "{{count}} gün gecikti",
+    "daysOverdue_other": "{{count}} gün gecikti",
+    "returnedLate_one": "{{count}} gün gecikmeli teslim",
+    "returnedLate_other": "{{count}} gün gecikmeli teslim",
+    "returnedOnTime": "Zamanında teslim",
+    "riskyBorrowerTitle": "Gecikme Geçmişi Uyarısı",
+    "riskyBorrowerMessage": "{{borrower}} adlı kişinin daha önce {{count}} gecikmeli teslimi bulunuyor. \"{{book}}\" kitabını yine de ödünç vermek istiyor musunuz?",
+    "statusValues": {
+      "borrowed": "Ödünçte",
+      "available": "Mevcut",
+      "returned": "Teslim Edildi"
     }
   }
+}

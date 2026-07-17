@@ -1,9 +1,13 @@
-import { useState } from "react";
+import {
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import type { Book } from "../model/types";
-import { getBooks } from "../api/client";
+import type { Loan } from "../../loans/model/types";
 
 import BookList from "../ui/BookList";
 import BookDialog from "../ui/BookDialog";
@@ -11,53 +15,76 @@ import BookDialog from "../ui/BookDialog";
 import ConfirmDialog from "../../../../shared/ui/ConfirmDialog";
 import PageHeader from "../../../../shared/ui/PageHeader";
 
-function BooksPage() {
+type BooksPageProps = {
+  books: Book[];
+  setBooks: Dispatch<
+    SetStateAction<Book[]>
+  >;
+  setLoans: Dispatch<
+    SetStateAction<Loan[]>
+  >;
+};
+
+function BooksPage({
+  books,
+  setBooks,
+  setLoans,
+}: BooksPageProps) {
   const { t } = useTranslation();
 
-  const [books, setBooks] = useState(getBooks);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] =
+    useState(false);
 
-  const [selectedBook, setSelectedBook] = useState<
-    Book | undefined
-  >();
+  const [selectedBook, setSelectedBook] =
+    useState<Book | undefined>();
 
-  const [bookToDelete, setBookToDelete] = useState<
-    Book | undefined
-  >();
+  const [bookToDelete, setBookToDelete] =
+    useState<Book | undefined>();
 
-  function addBook(title: string, author: string) {
+  function addBook(
+    title: string,
+    author: string,
+  ) {
     const newBook: Book = {
-      id: books.length + 1,
+      id: Date.now(),
       title,
       author,
     };
 
-    setBooks([...books, newBook]);
+    setBooks((currentBooks) => [
+      ...currentBooks,
+      newBook,
+    ]);
+
     closeDialog();
   }
 
-  function updateBook(title: string, author: string) {
+  function updateBook(
+    title: string,
+    author: string,
+  ) {
     if (!selectedBook) {
       return;
     }
 
-    const updatedBooks = books.map((book) =>
-      book.id === selectedBook.id
-        ? {
-            ...book,
-            title,
-            author,
-          }
-        : book
+    setBooks((currentBooks) =>
+      currentBooks.map((book) =>
+        book.id === selectedBook.id
+          ? {
+              ...book,
+              title,
+              author,
+            }
+          : book,
+      ),
     );
 
-    setBooks(updatedBooks);
     closeDialog();
   }
 
   function requestDeleteBook(id: number) {
     const foundBook = books.find(
-      (book) => book.id === id
+      (book) => book.id === id,
     );
 
     setBookToDelete(foundBook);
@@ -68,11 +95,22 @@ function BooksPage() {
       return;
     }
 
-    const updatedBooks = books.filter(
-      (book) => book.id !== bookToDelete.id
+    const deletedBookId = bookToDelete.id;
+
+    setBooks((currentBooks) =>
+      currentBooks.filter(
+        (book) =>
+          book.id !== deletedBookId,
+      ),
     );
 
-    setBooks(updatedBooks);
+    setLoans((currentLoans) =>
+      currentLoans.filter(
+        (loan) =>
+          loan.bookId !== deletedBookId,
+      ),
+    );
+
     setBookToDelete(undefined);
   }
 
@@ -113,7 +151,9 @@ function BooksPage() {
         open={isDialogOpen}
         onClose={closeDialog}
         onSubmit={
-          selectedBook ? updateBook : addBook
+          selectedBook
+            ? updateBook
+            : addBook
         }
         initialBook={selectedBook}
       />
