@@ -205,15 +205,10 @@ import {
               )}
             </Box>
   
-            <Box
-              sx={{
-                minWidth: 0,
-              }}
-            >
-              <Chip
-                label={t(`books.genres.${book.genre}`, {
-                    defaultValue: book.genre,
-                  })}
+            <Box sx={{ minWidth: 0, }} >
+             
+              <Chip 
+                label={t(`books.genres.${book.genre}`, {defaultValue: book.genre,})}
                 size="small"
                 color="primary"
                 variant="outlined"
@@ -247,11 +242,7 @@ import {
                 {book.author}
               </Typography>
   
-              <Box
-                sx={{
-                  marginTop: 3,
-                }}
-              >
+              <Box sx={{  marginTop: 3, }} >
                 <Typography
                   component="h3"
                   variant="subtitle1"
@@ -276,11 +267,7 @@ import {
                 </Typography>
               </Box>
   
-              <Divider
-                sx={{
-                  marginY: 3,
-                }}
-              />
+              <Divider sx={{ marginY: 3,  }}  />
   
               <Box
                 sx={{
@@ -314,11 +301,7 @@ import {
                       {item.icon}
                     </Box>
   
-                    <Box
-                      sx={{
-                        minWidth: 0,
-                      }}
-                    >
+                    <Box sx={{ minWidth: 0,  }}  >
                       <Typography
                         variant="caption"
                         color="text.secondary"

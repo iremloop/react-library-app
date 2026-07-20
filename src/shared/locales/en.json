@@ -29,7 +29,7 @@
     "genreLabel": "Genre",
     "titlePlaceholder": "Enter the book title",
     "authorPlaceholder": "Enter the author name",
-    "genrePlaceholder": "Enter the book genre",
+    "genrePlaceholder": "Select a genre",
     "titleRequired": "Book title is required.",
     "authorRequired": "Author name is required.",
     "genreRequired": "Book genre is required.",

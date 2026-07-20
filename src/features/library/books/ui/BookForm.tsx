@@ -24,6 +24,17 @@ function BookForm({
   onClose,
 }: BookFormProps) {
   const { t } = useTranslation();
+  const genres = [
+    "novel",
+    "classic",
+    "fantasy",
+    "scienceFiction",
+    "mystery",
+    "history",
+    "psychology",
+    "biography",
+    "dystopia"
+  ];
 
   const bookFormSchema = z.object({
     title: z
@@ -106,22 +117,27 @@ function BookForm({
         </span>
       )}
 
-<label htmlFor="genre">
-  {t("books.genreLabel")}
-</label>
+        <label htmlFor="genre">
+          {t("books.genreLabel")}
+        </label>
 
-<input
-  id="genre"
-  type="text"
-  placeholder={t("books.genrePlaceholder")}
-  {...register("genre")}
-/>
+        <select id="genre" {...register("genre")}>
+  <option value="">
+    {t("books.genrePlaceholder")}
+  </option>
 
-{errors.genre && (
-  <span className="form-error">
-    {errors.genre.message}
-  </span>
-)}
+  {genres.map((genre) => (
+    <option key={genre} value={genre}>
+      {t(`books.genres.${genre}`)}
+    </option>
+  ))}
+</select>
+
+        {errors.genre && (
+          <span className="form-error">
+            {errors.genre.message}
+          </span>
+        )}
 
       <div className="form-actions">
         <button

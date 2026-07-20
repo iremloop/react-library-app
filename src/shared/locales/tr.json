@@ -30,7 +30,7 @@
     "genreLabel": "Kitap Türü",
     "titlePlaceholder": "Kitap adını girin",
     "authorPlaceholder": "Yazar adını girin",
-    "genrePlaceholder": "Kitap türünü girin",
+    "genrePlaceholder": "Kitap türü seçin",
     "titleRequired": "Kitap adı zorunludur.",
     "authorRequired": "Yazar adı zorunludur.",
     "genreRequired": "Kitap türü zorunludur.",
@@ -57,7 +57,9 @@
     "history": "Tarih",
     "biography": "Biyografi",
     "dystopia": "Distopya",
-    "psychological": "Psikolojik"
+    "psychology": "Psikoloji",
+    "classic": "Klasik",
+    "mystery": "Gizem"
   },
 
   "summaries": {
