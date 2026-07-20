@@ -1,10 +1,12 @@
 import type { BookDto } from "./types";
 import type { Book } from "../model/types";
 
-export function toBook(dto: BookDto): Book {
+export function toBook(bookDto: BookDto): Book {
   return {
-    id: dto.id,
-    title: dto.title,
-    author: dto.author,
+    id: bookDto.id,
+    title: bookDto.title,
+    author: bookDto.author,
+    genre: bookDto.genre,
+    coverUrl: bookDto.coverUrl,
   };
 }
