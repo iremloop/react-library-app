@@ -47,7 +47,9 @@ import {
     return (
       <Card
         component="article"
+        onClick={() => onViewDetails(book)}
         sx={{
+            cursor: "pointer",
           display: "flex",
           flexDirection: "column",
           height: "100%",
@@ -216,7 +218,10 @@ import {
           <Button
             size="small"
             startIcon={<VisibilityOutlinedIcon />}
-            onClick={() => onViewDetails(book)}
+            onClick={(event) => {
+                event.stopPropagation();
+                onViewDetails(book);
+              }}
             sx={{
               textTransform: "none",
               fontWeight: 600,
@@ -229,7 +234,10 @@ import {
             <Tooltip title={t("common.edit")}>
               <IconButton
                 aria-label={`${book.title} ${t("common.edit")}`}
-                onClick={() => onEdit(book)}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    onEdit(book);
+                  }}
                 color="primary"
               >
                 <EditOutlinedIcon />
@@ -239,7 +247,10 @@ import {
             <Tooltip title={t("common.delete")}>
               <IconButton
                 aria-label={`${book.title} ${t("common.delete")}`}
-                onClick={() => onDelete(book)}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    onDelete(book);
+                  }}
                 color="error"
               >
                 <DeleteIcon />
