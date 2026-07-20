@@ -1,8 +1,8 @@
 {
   "app": {
-  "title": "Kütüphane Yönetim Sistemi",
-  "subtitle": "Kitapları ve ödünç işlemlerini kolayca yönetin."
-},
+    "title": "Kütüphane Yönetim Sistemi",
+    "subtitle": "Kitapları ve ödünç işlemlerini kolayca yönetin."
+  },
   "navigation": {
     "books": "Kitaplar",
     "loans": "Ödünçler"
@@ -20,22 +20,25 @@
     "error": "Bir hata oluştu."
   },
   "books": {
-  "title": "Kitaplar",
-  "addButton": "Yeni Kitap Ekle",
-  "addTitle": "Yeni Kitap Ekle",
-  "editTitle": "Kitabı Düzenle",
-  "titleLabel": "Kitap Adı",
-  "authorLabel": "Yazar",
-  "titlePlaceholder": "Kitap adını girin",
-  "authorPlaceholder": "Yazar adını girin",
-  "titleRequired": "Kitap adı zorunludur.",
-  "authorRequired": "Yazar adı zorunludur.",
-  "saveChanges": "Değişiklikleri Kaydet",
-  "empty": "Kitap bulunamadı.",
-  "deleteTitle": "Kitabı Sil",
-  "deleteMessage": "\"{{title}}\" kitabını silmek istediğinize emin misiniz?"
-}
-  ,
+    "title": "Kitaplar",
+    "addButton": "Yeni Kitap Ekle",
+    "addTitle": "Yeni Kitap Ekle",
+    "editTitle": "Kitabı Düzenle",
+    "titleLabel": "Kitap Adı",
+    "authorLabel": "Yazar",
+    "genreLabel": "Kitap Türü",
+    "titlePlaceholder": "Kitap adını girin",
+    "authorPlaceholder": "Yazar adını girin",
+    "genrePlaceholder": "Kitap türünü girin",
+    "titleRequired": "Kitap adı zorunludur.",
+    "authorRequired": "Yazar adı zorunludur.",
+    "genreRequired": "Kitap türü zorunludur.",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "empty": "Kitap bulunamadı.",
+    "deleteTitle": "Kitabı Sil",
+    "deleteMessage": "\"{{title}}\" kitabını silmek istediğinize emin misiniz?",
+    "coverAlt": "kitap kapağı"
+  },
   "loans": {
     "title": "Ödünç İşlemleri",
     "activeTableTitle": "Kitaplar ve Aktif Ödünçler",

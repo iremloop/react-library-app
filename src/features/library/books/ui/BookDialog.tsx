@@ -15,7 +15,11 @@ import type { Book } from "../model/types";
 type BookDialogProps = {
   open: boolean;
   onClose: () => void;
-  onSubmit: (title: string, author: string) => void;
+  onSubmit: (
+    title: string,
+    author: string,
+    genre: string
+  ) => void;
   initialBook?: Book;
 };
 

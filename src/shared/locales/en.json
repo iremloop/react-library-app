@@ -1,8 +1,8 @@
 {
   "app": {
-  "title": "Library Management System",
-  "subtitle": "Manage books and loan records easily."
-},
+    "title": "Library Management System",
+    "subtitle": "Manage books and loan records easily."
+  },
   "navigation": {
     "books": "Books",
     "loans": "Loans"
@@ -19,22 +19,26 @@
     "loading": "Loading...",
     "error": "An error occurred."
   },
- "books": {
-  "title": "Books",
-  "addButton": "Add New Book",
-  "addTitle": "Add New Book",
-  "editTitle": "Edit Book",
-  "titleLabel": "Book Title",
-  "authorLabel": "Author",
-  "titlePlaceholder": "Enter the book title",
-  "authorPlaceholder": "Enter the author name",
-  "titleRequired": "Book title is required.",
-  "authorRequired": "Author name is required.",
-  "saveChanges": "Save Changes",
-  "empty": "No books found.",
-  "deleteTitle": "Delete Book",
-  "deleteMessage": "Are you sure you want to delete \"{{title}}\"?"
-},
+  "books": {
+    "title": "Books",
+    "addButton": "Add New Book",
+    "addTitle": "Add New Book",
+    "editTitle": "Edit Book",
+    "titleLabel": "Book Title",
+    "authorLabel": "Author",
+    "genreLabel": "Genre",
+    "titlePlaceholder": "Enter the book title",
+    "authorPlaceholder": "Enter the author name",
+    "genrePlaceholder": "Enter the book genre",
+    "titleRequired": "Book title is required.",
+    "authorRequired": "Author name is required.",
+    "genreRequired": "Book genre is required.",
+    "saveChanges": "Save Changes",
+    "empty": "No books found.",
+    "deleteTitle": "Delete Book",
+    "deleteMessage": "Are you sure you want to delete \"{{title}}\"?",
+    "coverAlt": "book cover"
+  },
   "loans": {
     "title": "Loan Operations",
     "activeTableTitle": "Books and Active Loans",
@@ -51,7 +55,7 @@
     "edit": "Edit Loan",
     "borrowerRequired": "Borrower name is required.",
     "loanDateRequired": "Loan date is required.",
-    "plannedReturnDateRequired": "Planned return date is required.",
+    "plannedReturnDateRequired": "The planned return date is required.",
     "plannedDateBeforeLoanDate": "The planned return date cannot be earlier than the loan date.",
     "actualDateBeforeLoanDate": "The actual return date cannot be earlier than the loan date.",
     "searchLabel": "Search",

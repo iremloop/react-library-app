@@ -7,14 +7,19 @@ import { z } from "zod";
 
 import type { Book } from "../model/types";
 
-type BookFormData = {
+export type BookFormData = {
   title: string;
   author: string;
+  genre: string;
 };
 
 type BookFormProps = {
   initialBook?: Book;
-  onSubmit: (title: string, author: string) => void;
+  onSubmit: (
+    title: string,
+    author: string,
+    genre: string
+  ) => void;
 };
 
 function BookForm({
@@ -32,6 +37,10 @@ function BookForm({
       .string()
       .trim()
       .min(1, t("books.authorRequired")),
+    genre: z
+      .string()
+      .trim()
+      .min(1, t("books.genreRequired")),
   });
 
   const {
@@ -44,6 +53,7 @@ function BookForm({
     defaultValues: {
       title: initialBook?.title ?? "",
       author: initialBook?.author ?? "",
+      genre: initialBook?.genre ?? "",
     },
   });
 
@@ -51,12 +61,16 @@ function BookForm({
     reset({
       title: initialBook?.title ?? "",
       author: initialBook?.author ?? "",
+      genre: initialBook?.genre ?? "",
     });
   }, [initialBook, reset]);
 
   function submitForm(data: BookFormData) {
-    onSubmit(data.title, data.author);
-    reset();
+    onSubmit(data.title, data.author, data.genre);
+
+    if (!initialBook) {
+      reset();
+    }
   }
 
   return (
@@ -95,6 +109,23 @@ function BookForm({
       {errors.author && (
         <span className="form-error">
           {errors.author.message}
+        </span>
+      )}
+
+      <label htmlFor="genre">
+        {t("books.genreLabel")}
+      </label>
+
+      <input
+        id="genre"
+        type="text"
+        placeholder={t("books.genrePlaceholder")}
+        {...register("genre")}
+      />
+
+      {errors.genre && (
+        <span className="form-error">
+          {errors.genre.message}
         </span>
       )}
 

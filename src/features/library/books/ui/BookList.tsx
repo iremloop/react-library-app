@@ -1,99 +1,68 @@
-import {
-  Box,
-  Button,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
+import BookCard from "./BookCard";
 import type { Book } from "../model/types";
-
-import DataTable from "../../../../shared/ui/DataTable";
-import TableState from "../../../../shared/ui/TableState";
 
 type BookListProps = {
   books: Book[];
-  onDeleteBook: (id: number) => void;
-  onEditBook: (book: Book) => void;
+  onEdit: (book: Book) => void;
+  onDelete: (book: Book) => void;
 };
 
 function BookList({
   books,
-  onDeleteBook,
-  onEditBook,
+  onEdit,
+  onDelete,
 }: BookListProps) {
   const { t } = useTranslation();
 
-  const columns = [
-    {
-      key: "title",
-      header: t("books.titleLabel"),
-      render: (book: Book) => book.title,
-    },
-    {
-      key: "author",
-      header: t("books.authorLabel"),
-      render: (book: Book) => book.author,
-    },
-    {
-      key: "actions",
-      header: t("common.actions"),
-      render: (book: Book) => (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            gap: 1.5,
-            flexWrap: "wrap",
-          }}
-        >
-          <Button
-            size="small"
-            variant="contained"
-            onClick={() => onEditBook(book)}
-            sx={{
-              minWidth: 88,
-              borderRadius: 2,
-              textTransform: "none",
-            }}
-          >
-            {t("common.edit")}
-          </Button>
-
-          <Button
-            size="small"
-            variant="outlined"
-            color="error"
-            onClick={() =>
-              onDeleteBook(book.id)
-            }
-            sx={{
-              minWidth: 72,
-              borderRadius: 2,
-              textTransform: "none",
-            }}
-          >
-            {t("common.delete")}
-          </Button>
-        </Box>
-      ),
-    },
-  ];
-
   if (books.length === 0) {
     return (
-      <TableState
-        empty
-        emptyMessage={t("books.empty")}
-      />
+      <Box
+        sx={{
+          paddingY: 8,
+          paddingX: 3,
+          textAlign: "center",
+          border: "1px dashed",
+          borderColor: "divider",
+          borderRadius: 3,
+          backgroundColor: "background.paper",
+        }}
+      >
+        <Typography color="text.secondary">
+          {t("books.empty")}
+        </Typography>
+      </Box>
     );
   }
 
   return (
-    <DataTable
-      data={books}
-      columns={columns}
-      getRowKey={(book) => book.id}
-    />
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: {
+          xs: "1fr",
+          sm: "repeat(2, minmax(0, 1fr))",
+          md: "repeat(3, minmax(0, 1fr))",
+          lg: "repeat(4, minmax(0, 1fr))",
+        },
+        gap: {
+          xs: 2,
+          sm: 2.5,
+          md: 3,
+        },
+      }}
+    >
+      {books.map((book) => (
+        <BookCard
+          key={book.id}
+          book={book}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      ))}
+    </Box>
   );
 }
 
