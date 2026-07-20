@@ -56,7 +56,7 @@
   "history": "History",
   "biography": "Biography",
   "dystopia": "Dystopian",
-  "psychological": "Psychological"
+  "psychology": "Psychology"
 },
 
 "summaries": {
@@ -73,9 +73,20 @@
   "can": "Can Publishing",
   "yapiKredi": "Yapı Kredi Publishing"
 },
+"languageLabel": "Language",
+"languagePlaceholder": "Select a language",
+"languageRequired": "Language selection is required.",
+"customLanguageLabel": "Other Language",
+"customLanguagePlaceholder": "Enter the language",
 "languages": {
   "turkish": "Turkish",
-  "english": "English"
+  "english": "English",
+  "german": "German",
+  "french": "French",
+  "spanish": "Spanish",
+  "russian": "Russian",
+  "japanese": "Japanese",
+  "other": "Other"
 }
   },
 

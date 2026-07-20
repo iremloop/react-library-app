@@ -92,7 +92,7 @@ export const bookDtos: BookDto[] = [
     id: 7,
     title: "Satranç",
     author: "Stefan Zweig",
-    genre: "psychological",
+    genre: "psychology" ,
     coverUrl: chessCover,
     summary: "chessSummary",
     pageCount: 96,

@@ -10,11 +10,13 @@ type BookFormData = {
   title: string;
   author: string;
   genre: string;
+  language: string;
+  customLanguage?: string;
 };
 
 type BookFormProps = {
   initialBook?: Book;
-  onSubmit: (title: string, author: string,  genre: string) => void;
+  onSubmit: (title: string, author: string,  genre: string, language: string) => void;
   onClose: () => void;
 };
 
@@ -36,6 +38,17 @@ function BookForm({
     "dystopia"
   ];
 
+  const languages = [
+    "turkish",
+    "english",
+    "german",
+    "french",
+    "spanish",
+    "russian",
+    "japanese",
+    "other",
+  ];
+
   const bookFormSchema = z.object({
     title: z
       .string()
@@ -49,11 +62,17 @@ function BookForm({
         .string()
         .trim()
         .min(1, t("books.genreRequired")),
+   language: z
+      .string()
+      .trim()
+      .min(1, t("books.languageRequired")),
+  customLanguage: z.string().optional(),
   });
 
   const {
     register,
     handleSubmit,
+    watch,
     reset,
     formState: { errors },
   } = useForm<BookFormData>({
@@ -62,19 +81,31 @@ function BookForm({
       title: initialBook?.title ?? "",
       author: initialBook?.author ?? "",
       genre: initialBook?.genre ?? "",
+      language: initialBook?.language ?? "",
+      customLanguage: "",
     },
   });
+
+  const selectedLanguage = watch("language");
+
 
   useEffect(() => {
     reset({
       title: initialBook?.title ?? "",
       author: initialBook?.author ?? "",
       genre: initialBook?.genre ?? "",
+      language: initialBook?.language ?? "",
+      customLanguage: "",
     });
   }, [initialBook, reset]);
 
   function submitForm(data: BookFormData) {
-    onSubmit(data.title, data.author,data.genre);
+    const language =
+    data.language === "other"
+      ? data.customLanguage?.trim() ?? ""
+      : data.language;
+
+    onSubmit(data.title, data.author,data.genre, language);
     reset();
   }
 
@@ -122,22 +153,58 @@ function BookForm({
         </label>
 
         <select id="genre" {...register("genre")}>
-  <option value="">
-    {t("books.genrePlaceholder")}
-  </option>
+          <option value="">
+            {t("books.genrePlaceholder")}
+          </option>
 
-  {genres.map((genre) => (
-    <option key={genre} value={genre}>
-      {t(`books.genres.${genre}`)}
-    </option>
-  ))}
-</select>
+          {genres.map((genre) => (
+            <option key={genre} value={genre}>
+              {t(`books.genres.${genre}`)}
+            </option>
+          ))}
+    </select>
 
         {errors.genre && (
           <span className="form-error">
             {errors.genre.message}
           </span>
         )}
+
+
+        <label htmlFor="language">
+          {t("books.languageLabel")}
+        </label>
+
+        <select id="language" {...register("language")}>
+          <option value="">
+            {t("books.languagePlaceholder")}
+          </option>
+
+          {languages.map((language) => (
+            <option key={language} value={language}>
+              {t(`books.languages.${language}`)}
+            </option>
+          ))}
+        </select>
+
+        
+
+{selectedLanguage === "other" && (
+  <>
+    <label htmlFor="customLanguage">
+      {t("books.customLanguageLabel")}
+    </label>
+
+    <input
+      id="customLanguage"
+      type="text"
+      placeholder={t("books.customLanguagePlaceholder")}
+      {...register("customLanguage")}
+    />
+  </>
+)}
+
+
 
       <div className="form-actions">
         <button

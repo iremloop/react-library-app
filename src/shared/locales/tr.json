@@ -76,9 +76,20 @@
   "can": "Can Yayınları",
   "yapiKredi": "Yapı Kredi Yayınları"
 },
+"languageLabel": "Dil",
+"languagePlaceholder": "Dil seçin",
+"languageRequired": "Dil seçimi zorunludur.",
+"customLanguageLabel": "Diğer Dil",
+"customLanguagePlaceholder": "Dili yazın",
 "languages": {
   "turkish": "Türkçe",
-  "english": "İngilizce"
+  "english": "İngilizce",
+  "german": "Almanca",
+  "french": "Fransızca",
+  "spanish": "İspanyolca",
+  "russian": "Rusça",
+  "japanese": "Japonca",
+  "other": "Diğer"
 }
 
 },
