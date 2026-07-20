@@ -6,12 +6,14 @@ import type { Book } from "../model/types";
 
 type BookListProps = {
   books: Book[];
+  onViewDetails: (book: Book) => void;
   onEdit: (book: Book) => void;
   onDelete: (book: Book) => void;
 };
 
 function BookList({
   books,
+  onViewDetails,
   onEdit,
   onDelete,
 }: BookListProps) {
@@ -58,6 +60,7 @@ function BookList({
         <BookCard
           key={book.id}
           book={book}
+          onViewDetails={onViewDetails}
           onEdit={onEdit}
           onDelete={onDelete}
         />

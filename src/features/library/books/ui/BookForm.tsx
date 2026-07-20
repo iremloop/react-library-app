@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Box, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,7 +6,7 @@ import { z } from "zod";
 
 import type { Book } from "../model/types";
 
-export type BookFormData = {
+type BookFormData = {
   title: string;
   author: string;
   genre: string;
@@ -15,16 +14,14 @@ export type BookFormData = {
 
 type BookFormProps = {
   initialBook?: Book;
-  onSubmit: (
-    title: string,
-    author: string,
-    genre: string
-  ) => void;
+  onSubmit: (title: string, author: string,  genre: string) => void;
+  onClose: () => void;
 };
 
 function BookForm({
   initialBook,
   onSubmit,
+  onClose,
 }: BookFormProps) {
   const { t } = useTranslation();
 
@@ -38,9 +35,9 @@ function BookForm({
       .trim()
       .min(1, t("books.authorRequired")),
     genre: z
-      .string()
-      .trim()
-      .min(1, t("books.genreRequired")),
+        .string()
+        .trim()
+        .min(1, t("books.genreRequired")),
   });
 
   const {
@@ -66,11 +63,8 @@ function BookForm({
   }, [initialBook, reset]);
 
   function submitForm(data: BookFormData) {
-    onSubmit(data.title, data.author, data.genre);
-
-    if (!initialBook) {
-      reset();
-    }
+    onSubmit(data.title, data.author,data.genre);
+    reset();
   }
 
   return (
@@ -112,45 +106,41 @@ function BookForm({
         </span>
       )}
 
-      <label htmlFor="genre">
-        {t("books.genreLabel")}
-      </label>
+<label htmlFor="genre">
+  {t("books.genreLabel")}
+</label>
 
-      <input
-        id="genre"
-        type="text"
-        placeholder={t("books.genrePlaceholder")}
-        {...register("genre")}
-      />
+<input
+  id="genre"
+  type="text"
+  placeholder={t("books.genrePlaceholder")}
+  {...register("genre")}
+/>
 
-      {errors.genre && (
-        <span className="form-error">
-          {errors.genre.message}
-        </span>
-      )}
+{errors.genre && (
+  <span className="form-error">
+    {errors.genre.message}
+  </span>
+)}
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginTop: 3,
-        }}
-      >
-        <Button
+      <div className="form-actions">
+        <button
+          className="primary-button"
           type="submit"
-          variant="contained"
-          sx={{
-            minWidth: 170,
-            borderRadius: 2,
-            textTransform: "none",
-            fontWeight: 650,
-          }}
         >
           {initialBook
             ? t("books.saveChanges")
             : t("books.addButton")}
-        </Button>
-      </Box>
+        </button>
+
+        <button
+          className="secondary-button"
+          type="button"
+          onClick={onClose}
+        >
+          {t("common.close")}
+        </button>
+      </div>
     </form>
   );
 }

@@ -8,5 +8,12 @@ export function toBook(bookDto: BookDto): Book {
     author: bookDto.author,
     genre: bookDto.genre,
     coverUrl: bookDto.coverUrl,
+
+    summary: bookDto.summary,
+    pageCount: bookDto.pageCount,
+    publicationYear: bookDto.publicationYear,
+    isbn: bookDto.isbn,
+    publisher: bookDto.publisher,
+    language: bookDto.language,
   };
 }

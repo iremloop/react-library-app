@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Card,
     CardActions,
     CardContent,
@@ -12,11 +13,13 @@ import {
   
   import DeleteIcon from "@mui/icons-material/Delete";
   import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+  import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
   
   import type { Book } from "../model/types";
   
   type BookCardProps = {
     book: Book;
+    onViewDetails: (book: Book) => void;
     onEdit: (book: Book) => void;
     onDelete: (book: Book) => void;
   };
@@ -32,6 +35,7 @@ import {
   
   function BookCard({
     book,
+    onViewDetails,
     onEdit,
     onDelete,
   }: BookCardProps) {
@@ -121,7 +125,7 @@ import {
                 opacity: 0.82,
               }}
             >
-              {book.genre}
+              {t(`genres.${book.genre}`, { defaultValue: book.genre })}
             </Typography>
   
             <Box
@@ -168,15 +172,15 @@ import {
           }}
         >
           <Typography
-            component="h3"
-            variant="h6"
-            sx={{
-              fontWeight: 750,
-              lineHeight: 1.25,
-            }}
-          >
-            {book.title}
-          </Typography>
+  component="h3"
+  variant="h6"
+  sx={{
+    fontWeight: 750,
+    lineHeight: 1.25,
+  }}
+>
+{book.title}
+</Typography>
   
           <Typography
             variant="body2"
@@ -187,7 +191,9 @@ import {
   
           <Box sx={{ marginTop: "auto", paddingTop: 1 }}>
             <Chip
-              label={book.genre}
+             label={t(`books.genres.${book.genre}`, {
+                defaultValue: book.genre,
+              })}
               size="small"
               variant="outlined"
               sx={{
@@ -200,31 +206,46 @@ import {
   
         <CardActions
           sx={{
-            justifyContent: "flex-end",
+            display: "flex",
+            justifyContent: "space-between",
             paddingX: 2,
             paddingBottom: 2,
             paddingTop: 0,
           }}
         >
-          <Tooltip title={t("common.edit")}>
-            <IconButton
-              aria-label={`${book.title} ${t("common.edit")}`}
-              onClick={() => onEdit(book)}
-              color="primary"
-            >
-              <EditOutlinedIcon />
-            </IconButton>
-          </Tooltip>
+          <Button
+            size="small"
+            startIcon={<VisibilityOutlinedIcon />}
+            onClick={() => onViewDetails(book)}
+            sx={{
+              textTransform: "none",
+              fontWeight: 600,
+            }}
+          >
+            {t("books.viewDetails")}
+          </Button>
   
-          <Tooltip title={t("common.delete")}>
-            <IconButton
-              aria-label={`${book.title} ${t("common.delete")}`}
-              onClick={() => onDelete(book)}
-              color="error"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          <Box>
+            <Tooltip title={t("common.edit")}>
+              <IconButton
+                aria-label={`${book.title} ${t("common.edit")}`}
+                onClick={() => onEdit(book)}
+                color="primary"
+              >
+                <EditOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+  
+            <Tooltip title={t("common.delete")}>
+              <IconButton
+                aria-label={`${book.title} ${t("common.delete")}`}
+                onClick={() => onDelete(book)}
+                color="error"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </CardActions>
       </Card>
     );

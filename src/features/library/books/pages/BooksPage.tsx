@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import BookList from "../ui/BookList";
 import BookDialog from "../ui/BookDialog";
+import BookDetailsDialog from "../ui/BookDetailsDialog";
 
 import type { Book } from "../model/types";
 
@@ -39,6 +40,9 @@ function BooksPage({
   const [selectedBook, setSelectedBook] =
     useState<Book | undefined>(undefined);
 
+  const [detailsBook, setDetailsBook] =
+    useState<Book | null>(null);
+
   const [bookToDelete, setBookToDelete] =
     useState<Book | null>(null);
 
@@ -55,6 +59,14 @@ function BooksPage({
   function closeBookDialog() {
     setIsBookDialogOpen(false);
     setSelectedBook(undefined);
+  }
+
+  function openBookDetails(book: Book) {
+    setDetailsBook(book);
+  }
+
+  function closeBookDetails() {
+    setDetailsBook(null);
   }
 
   function handleBookSubmit(
@@ -83,6 +95,12 @@ function BooksPage({
         title,
         author,
         genre,
+        summary: t("books.defaultSummary"),
+        pageCount: 0,
+        publicationYear: new Date().getFullYear(),
+        isbn: "-",
+        publisher: "-",
+        language: t("books.defaultLanguage"),
       };
 
       setBooks((currentBooks) => [
@@ -112,6 +130,10 @@ function BooksPage({
         (book) => book.id !== bookToDelete.id
       )
     );
+
+    if (detailsBook?.id === bookToDelete.id) {
+      closeBookDetails();
+    }
 
     closeDeleteDialog();
   }
@@ -162,6 +184,7 @@ function BooksPage({
 
       <BookList
         books={books}
+        onViewDetails={openBookDetails}
         onEdit={openEditBookDialog}
         onDelete={openDeleteDialog}
       />
@@ -171,6 +194,12 @@ function BooksPage({
         onClose={closeBookDialog}
         onSubmit={handleBookSubmit}
         initialBook={selectedBook}
+      />
+
+      <BookDetailsDialog
+        book={detailsBook}
+        open={detailsBook !== null}
+        onClose={closeBookDetails}
       />
 
       <Dialog

@@ -37,8 +37,50 @@
     "empty": "No books found.",
     "deleteTitle": "Delete Book",
     "deleteMessage": "Are you sure you want to delete \"{{title}}\"?",
-    "coverAlt": "book cover"
+    "coverAlt": "book cover",
+    "detailsTitle": "Book Details",
+    "viewDetails": "View Details",
+    "summary": "Summary",
+    "pageCount": "Page Count",
+    "publicationYear": "Publication Year",
+    "publisher": "Publisher",
+    "isbn": "ISBN",
+    "language": "Language",
+    "defaultSummary": "No summary has been added for this book yet.",
+    "defaultLanguage": "English",
+
+    "genres": {
+  "novel": "Novel",
+  "scienceFiction": "Science Fiction",
+  "fantasy": "Fantasy",
+  "history": "History",
+  "biography": "Biography",
+  "dystopia": "Dystopian",
+  "psychological": "Psychological"
+},
+
+"summaries": {
+  "crimeAndPunishmentSummary": "The novel follows former law student Raskolnikov as he struggles with guilt, morality and inner conflict after committing a crime.",
+  "nineteenEightyFourSummary": "A dystopian novel that questions freedom and truth in a totalitarian world controlled by Big Brother.",
+  "alchemistSummary": "The story follows Santiago on a journey to discover his dreams, destiny and personal legend.",
+  "animalFarmSummary": "An allegorical novel that criticizes totalitarian regimes through the struggle for freedom of animals living on a farm.",
+  "madonnaInAFurCoatSummary": "A deeply moving story about the unforgettable relationship between Raif Efendi and Maria Puder.",
+  "lesMiserablesSummary": "A classic French novel exploring justice, compassion and social inequality through the life of Jean Valjean.",
+  "chessSummary": "The story of Dr. B., who uses chess to survive intense psychological pressure while held in isolation."
+},
+"publishers": {
+  "isBankasi": "İş Bankası Culture Publications",
+  "can": "Can Publishing",
+  "yapiKredi": "Yapı Kredi Publishing"
+},
+"languages": {
+  "turkish": "Turkish",
+  "english": "English"
+}
   },
+
+
+
   "loans": {
     "title": "Loan Operations",
     "activeTableTitle": "Books and Active Loans",
@@ -75,4 +117,5 @@
       "returned": "Returned"
     }
   }
+
 }

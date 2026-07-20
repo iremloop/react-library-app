@@ -19,6 +19,7 @@
     "loading": "Yükleniyor...",
     "error": "Bir hata oluştu."
   },
+
   "books": {
     "title": "Kitaplar",
     "addButton": "Yeni Kitap Ekle",
@@ -37,8 +38,49 @@
     "empty": "Kitap bulunamadı.",
     "deleteTitle": "Kitabı Sil",
     "deleteMessage": "\"{{title}}\" kitabını silmek istediğinize emin misiniz?",
-    "coverAlt": "kitap kapağı"
+    "coverAlt": "kitap kapağı",
+    "detailsTitle": "Kitap Detayları",
+    "viewDetails": "Detayları Gör",
+    "summary": "Kitap Özeti",
+    "pageCount": "Sayfa Sayısı",
+    "publicationYear": "Yayın Yılı",
+    "publisher": "Yayınevi",
+    "isbn": "ISBN",
+    "language": "Dil",
+    "defaultSummary": "Bu kitap için henüz bir özet eklenmemiştir.",
+    "defaultLanguage": "Türkçe",
+
+    "genres": {
+    "novel": "Roman",
+    "scienceFiction": "Bilim Kurgu",
+    "fantasy": "Fantastik",
+    "history": "Tarih",
+    "biography": "Biyografi",
+    "dystopia": "Distopya",
+    "psychological": "Psikolojik"
   },
+
+  "summaries": {
+  "crimeAndPunishmentSummary": "Eski bir hukuk öğrencisi olan Raskolnikov'un işlediği cinayet sonrası yaşadığı vicdan azabı, ahlaki sorgulamalar ve içsel çatışmaları anlatan dünya edebiyatının başyapıtlarından biridir.",
+  "nineteenEightyFourSummary": "Büyük Birader'in her şeyi kontrol ettiği totaliter bir dünyada özgürlük ve gerçek kavramlarını sorgulayan distopik bir romandır.",
+  "alchemistSummary": "Kendi kişisel menkıbesini gerçekleştirmek için çıktığı yolculukta Santiago'nun hayatı, hayalleri ve kaderi keşfetmesini konu alır.",
+  "animalFarmSummary": "Bir çiftlikte yaşayan hayvanların özgürlük mücadelesi üzerinden totaliter rejimleri eleştiren alegorik bir romandır.",
+  "madonnaInAFurCoatSummary": "Raif Efendi'nin Maria Puder ile yaşadığı derin ve unutulmaz aşkı konu alan Türk edebiyatının en sevilen eserlerinden biridir.",
+  "lesMiserablesSummary": "Jean Valjean'ın hayatı üzerinden adalet, merhamet ve toplumsal eşitsizlik temalarını işleyen klasik bir Fransız romanıdır.",
+  "chessSummary": "Tek başına bir odada yaşadığı psikolojik baskıyla satranç sayesinde hayatta kalmaya çalışan Dr. B.'nin etkileyici hikâyesini anlatır."
+},
+"publishers": {
+  "isBankasi": "İş Bankası Kültür Yayınları",
+  "can": "Can Yayınları",
+  "yapiKredi": "Yapı Kredi Yayınları"
+},
+"languages": {
+  "turkish": "Türkçe",
+  "english": "İngilizce"
+}
+
+},
+
   "loans": {
     "title": "Ödünç İşlemleri",
     "activeTableTitle": "Kitaplar ve Aktif Ödünçler",

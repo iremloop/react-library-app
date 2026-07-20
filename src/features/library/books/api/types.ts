@@ -4,4 +4,11 @@ export type BookDto = {
   author: string;
   genre: string;
   coverUrl?: string;
+
+  summary: string;
+  pageCount: number;
+  publicationYear: number;
+  isbn: string;
+  publisher: string;
+  language: string;
 };

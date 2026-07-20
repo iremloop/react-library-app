@@ -67,6 +67,7 @@ function BookDialog({
             color: "text.secondary",
           }}
         >
+
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -76,6 +77,7 @@ function BookDialog({
           <BookForm
             initialBook={initialBook}
             onSubmit={onSubmit}
+            onClose={onClose}
           />
         </Box>
       </DialogContent>
