@@ -10,6 +10,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -32,7 +33,6 @@ function BooksPage({
   books,
   setBooks,
 }: BooksPageProps) {
-  console.log("BOOKS:", books);
   const { t } = useTranslation();
 
   const [isBookDialogOpen, setIsBookDialogOpen] =
@@ -46,6 +46,8 @@ function BooksPage({
 
   const [bookToDelete, setBookToDelete] =
     useState<Book | null>(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   function openAddBookDialog() {
     console.log("Yeni kitap ekleme butonuna basıldı.");
@@ -149,6 +151,22 @@ function BooksPage({
     closeDeleteDialog();
   }
 
+
+  const filteredBooks = books.filter((book) => {
+    const searchValue = searchTerm
+      .toLocaleLowerCase("tr-TR")
+      .trim();
+  
+    return (
+      book.title
+        .toLocaleLowerCase("tr-TR")
+        .includes(searchValue) ||
+      book.author
+        .toLocaleLowerCase("tr-TR")
+        .includes(searchValue)
+    );
+  });
+
   return (
     <Box>
       <Box
@@ -193,8 +211,21 @@ function BooksPage({
         </Button>
       </Box>
 
+            <TextField
+        fullWidth
+        type="search"
+        label={t("books.searchLabel")}
+        placeholder={t("books.searchPlaceholder")}
+        value={searchTerm}
+        onChange={(event) => {
+          setSearchTerm(event.target.value);
+        }}
+        sx={{
+          marginBottom: 3,
+        }}
+      />
       <BookList
-        books={books}
+         books={filteredBooks}
         onViewDetails={openBookDetails}
         onEdit={openEditBookDialog}
         onDelete={openDeleteDialog}

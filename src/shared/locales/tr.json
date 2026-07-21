@@ -54,6 +54,8 @@
     "coverPreviewAlt": "Kapak önizlemesi",
     "chooseCover": "Kapak Seç",
     "changeCover": "Kapağı Değiştir",
+    "searchLabel": "Kitap Ara",
+"searchPlaceholder": "Kitap adı veya yazar ara",
 
     "genres": {
     "novel": "Roman",

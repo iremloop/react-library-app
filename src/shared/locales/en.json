@@ -53,6 +53,8 @@
     "coverPreviewAlt": "Book cover preview",
     "chooseCover": "Choose Cover",
     "changeCover": "Change Cover",
+    "searchLabel": "Search Books",
+"searchPlaceholder": "Search by title or author",
 
     "genres": {
   "novel": "Novel",
