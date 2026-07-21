@@ -18,7 +18,9 @@ type BookDialogProps = {
   onSubmit: (
     title: string,
     author: string,
-    genre: string
+    genre: string,
+    language: string, 
+    publisher: string
   ) => void;
   initialBook?: Book;
 };

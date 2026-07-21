@@ -72,8 +72,12 @@ function BooksPage({
   function handleBookSubmit(
     title: string,
     author: string,
-    genre: string
+    genre: string,
+    language: string,
+    publisher:string
+
   ) {
+    console.log("publisher:", publisher);
     if (selectedBook) {
       setBooks((currentBooks) =>
         currentBooks.map((book) => {
@@ -86,6 +90,8 @@ function BooksPage({
             title,
             author,
             genre,
+            language, 
+            publisher
           };
         })
       );
@@ -99,8 +105,8 @@ function BooksPage({
         pageCount: 0,
         publicationYear: new Date().getFullYear(),
         isbn: "-",
-        publisher: "-",
-        language: t("books.defaultLanguage"),
+        publisher,
+        language,
       };
 
       setBooks((currentBooks) => [

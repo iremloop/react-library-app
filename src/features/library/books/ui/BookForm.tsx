@@ -12,13 +12,26 @@ type BookFormData = {
   genre: string;
   language: string;
   customLanguage?: string;
+  publisher: string;
+  customPublisher?: string;
 };
 
 type BookFormProps = {
   initialBook?: Book;
-  onSubmit: (title: string, author: string,  genre: string, language: string) => void;
+  onSubmit: (title: string, author: string,  genre: string, language: string, publisher: string) => void;
   onClose: () => void;
 };
+
+const publishers = [
+  "yapiKredi",
+  "isBankasi",
+  "can",
+  "iletisim",
+  "kirmiziKedi",
+  "pegasus",
+  "epsilon",
+  "other",
+];
 
 function BookForm({
   initialBook,
@@ -49,6 +62,8 @@ function BookForm({
     "other",
   ];
 
+
+
   const bookFormSchema = z.object({
     title: z
       .string()
@@ -66,7 +81,12 @@ function BookForm({
       .string()
       .trim()
       .min(1, t("books.languageRequired")),
+    publisher: z
+      .string()
+      .trim()
+      .min(1, t("books.publisherRequired")),
   customLanguage: z.string().optional(),
+  customPublisher: z.string().optional(),
   });
 
   const {
@@ -78,24 +98,42 @@ function BookForm({
   } = useForm<BookFormData>({
     resolver: zodResolver(bookFormSchema),
     defaultValues: {
-      title: initialBook?.title ?? "",
-      author: initialBook?.author ?? "",
-      genre: initialBook?.genre ?? "",
-      language: initialBook?.language ?? "",
+      title: "",
+      author:  "",
+      genre:  "",
+      language:  "",
       customLanguage: "",
+      publisher: "",
+      customPublisher: "",
+
     },
   });
 
   const selectedLanguage = watch("language");
+  const selectedPublisher = watch("publisher");
 
 
   useEffect(() => {
+    const savedPublisher = initialBook?.publisher ?? "";
+  
+    const publisherIsCustom =
+      savedPublisher !== "" &&
+      !publishers.includes(savedPublisher);
+  
     reset({
       title: initialBook?.title ?? "",
       author: initialBook?.author ?? "",
       genre: initialBook?.genre ?? "",
       language: initialBook?.language ?? "",
       customLanguage: "",
+  
+      publisher: publisherIsCustom
+        ? "other"
+        : savedPublisher,
+  
+      customPublisher: publisherIsCustom
+        ? savedPublisher
+        : "",
     });
   }, [initialBook, reset]);
 
@@ -105,7 +143,12 @@ function BookForm({
       ? data.customLanguage?.trim() ?? ""
       : data.language;
 
-    onSubmit(data.title, data.author,data.genre, language);
+    const publisher =
+    data.publisher === "other"
+    ? data.customPublisher?.trim() ?? ""
+    : data.publisher;
+
+    onSubmit(data.title, data.author,data.genre, language, publisher);
     reset();
   }
 
@@ -186,6 +229,50 @@ function BookForm({
             </option>
           ))}
         </select>
+
+        <label htmlFor="publisher">
+  {t("books.publisherLabel")}
+</label>
+
+<select
+  id="publisher"
+  {...register("publisher")}
+>
+  <option value="">
+    {t("books.publisherPlaceholder")}
+  </option>
+
+  {publishers.map((publisher) => (
+    <option
+      key={publisher}
+      value={publisher}
+    >
+      {t(`books.publishers.${publisher}`)}
+    </option>
+  ))}
+</select>
+
+
+{errors.publisher && (
+  <span className="form-error">
+    {errors.publisher.message}
+  </span>
+)}
+
+{selectedPublisher === "other" && (
+  <>
+    <label htmlFor="customPublisher">
+      {t("books.customPublisherLabel")}
+    </label>
+
+    <input
+      id="customPublisher"
+      type="text"
+      placeholder={t("books.customPublisherPlaceholder")}
+      {...register("customPublisher")}
+    />
+  </>
+)}
 
         
 

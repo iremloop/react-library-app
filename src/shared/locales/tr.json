@@ -49,6 +49,7 @@
     "language": "Dil",
     "defaultSummary": "Bu kitap için henüz bir özet eklenmemiştir.",
     "defaultLanguage": "Türkçe",
+    "publisherLabel": "Yayınevi",
 
     "genres": {
     "novel": "Roman",
@@ -74,8 +75,15 @@
 "publishers": {
   "isBankasi": "İş Bankası Kültür Yayınları",
   "can": "Can Yayınları",
-  "yapiKredi": "Yapı Kredi Yayınları"
-},
+  "yapiKredi": "Yapı Kredi Yayınları",
+  "iletisim": "İletişim Yayınları",
+  "kirmiziKedi": "Kırmızı Kedi Yayınevi",
+   "pegasus": "Pegasus Yayınları",
+  "epsilon": "Epsilon Yayınevi",
+   "other": "Diğer"
+    },
+    "publisherPlaceholder": "Yayınevi seçin",
+
 "languageLabel": "Dil",
 "languagePlaceholder": "Dil seçin",
 "languageRequired": "Dil seçimi zorunludur.",
@@ -91,6 +99,9 @@
   "japanese": "Japonca",
   "other": "Diğer"
 }
+
+
+
 
 },
 

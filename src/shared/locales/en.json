@@ -48,6 +48,7 @@
     "language": "Language",
     "defaultSummary": "No summary has been added for this book yet.",
     "defaultLanguage": "English",
+    "publisherLabel": "Publisher",
 
     "genres": {
   "novel": "Novel",
@@ -71,8 +72,15 @@
 "publishers": {
   "isBankasi": "İş Bankası Culture Publications",
   "can": "Can Publishing",
-  "yapiKredi": "Yapı Kredi Publishing"
+  "yapiKredi": "Yapı Kredi Publishing",
+  "iletisim": "Iletisim Publications",
+  "kirmiziKedi": "Kirmizi Kedi Publishing",
+  "pegasus": "Pegasus Publications",
+  "epsilon": "Epsilon Publishing",
+  "other": "Other"
 },
+"publisherPlaceholder": "Select a publisher",
+
 "languageLabel": "Language",
 "languagePlaceholder": "Select a language",
 "languageRequired": "Language selection is required.",
