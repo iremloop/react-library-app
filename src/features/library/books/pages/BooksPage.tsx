@@ -32,6 +32,7 @@ function BooksPage({
   books,
   setBooks,
 }: BooksPageProps) {
+  console.log("BOOKS:", books);
   const { t } = useTranslation();
 
   const [isBookDialogOpen, setIsBookDialogOpen] =
@@ -47,6 +48,7 @@ function BooksPage({
     useState<Book | null>(null);
 
   function openAddBookDialog() {
+    console.log("Yeni kitap ekleme butonuna basıldı.");
     setSelectedBook(undefined);
     setIsBookDialogOpen(true);
   }
@@ -74,7 +76,8 @@ function BooksPage({
     author: string,
     genre: string,
     language: string,
-    publisher:string
+    publisher:string,
+    coverUrl: string
 
   ) {
     console.log("publisher:", publisher);
@@ -84,14 +87,15 @@ function BooksPage({
           if (book.id !== selectedBook.id) {
             return book;
           }
-
+          
           return {
             ...book,
             title,
             author,
             genre,
             language, 
-            publisher
+            publisher,
+            coverUrl,
           };
         })
       );
@@ -107,6 +111,7 @@ function BooksPage({
         isbn: "-",
         publisher,
         language,
+        coverUrl,
       };
 
       setBooks((currentBooks) => [

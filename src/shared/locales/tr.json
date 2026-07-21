@@ -50,6 +50,10 @@
     "defaultSummary": "Bu kitap için henüz bir özet eklenmemiştir.",
     "defaultLanguage": "Türkçe",
     "publisherLabel": "Yayınevi",
+    "coverLabel": "Kitap Kapağı",
+    "coverPreviewAlt": "Kapak önizlemesi",
+    "chooseCover": "Kapak Seç",
+    "changeCover": "Kapağı Değiştir",
 
     "genres": {
     "novel": "Roman",

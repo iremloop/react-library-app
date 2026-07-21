@@ -49,6 +49,10 @@
     "defaultSummary": "No summary has been added for this book yet.",
     "defaultLanguage": "English",
     "publisherLabel": "Publisher",
+    "coverLabel": "Book Cover",
+    "coverPreviewAlt": "Book cover preview",
+    "chooseCover": "Choose Cover",
+    "changeCover": "Change Cover",
 
     "genres": {
   "novel": "Novel",

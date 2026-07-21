@@ -14,11 +14,12 @@ type BookFormData = {
   customLanguage?: string;
   publisher: string;
   customPublisher?: string;
+  coverUrl?: string;
 };
 
 type BookFormProps = {
   initialBook?: Book;
-  onSubmit: (title: string, author: string,  genre: string, language: string, publisher: string) => void;
+  onSubmit: (title: string, author: string,  genre: string, language: string, publisher: string, coverUrl: string) => void;
   onClose: () => void;
 };
 
@@ -87,6 +88,7 @@ function BookForm({
       .min(1, t("books.publisherRequired")),
   customLanguage: z.string().optional(),
   customPublisher: z.string().optional(),
+  coverUrl: z.string().optional(),
   });
 
   const {
@@ -94,6 +96,7 @@ function BookForm({
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<BookFormData>({
     resolver: zodResolver(bookFormSchema),
@@ -105,12 +108,14 @@ function BookForm({
       customLanguage: "",
       publisher: "",
       customPublisher: "",
+      coverUrl: "",
 
     },
   });
 
   const selectedLanguage = watch("language");
   const selectedPublisher = watch("publisher");
+  const coverUrl = watch("coverUrl"); 
 
 
   useEffect(() => {
@@ -134,8 +139,34 @@ function BookForm({
       customPublisher: publisherIsCustom
         ? savedPublisher
         : "",
+        coverUrl: initialBook?.coverUrl ?? "",
     });
   }, [initialBook, reset]);
+
+
+  function handleCoverChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const file = event.target.files?.[0];
+  
+    if (!file) {
+      return;
+    }
+  
+    if (!file.type.startsWith("image/")) {
+      return;
+    }
+  
+    const reader = new FileReader();
+  
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setValue("coverUrl", reader.result);
+      }
+    };
+  
+    reader.readAsDataURL(file);
+  }
 
   function submitForm(data: BookFormData) {
     const language =
@@ -148,7 +179,7 @@ function BookForm({
     ? data.customPublisher?.trim() ?? ""
     : data.publisher;
 
-    onSubmit(data.title, data.author,data.genre, language, publisher);
+    onSubmit(data.title, data.author,data.genre, language, publisher,data.coverUrl ?? "");
     reset();
   }
 
@@ -291,6 +322,44 @@ function BookForm({
   </>
 )}
 
+<label htmlFor="cover">
+  {t("books.coverLabel")}
+</label>
+
+<input
+  id="cover"
+  type="file"
+  accept="image/*"
+  onChange={handleCoverChange}
+  style={{ display: "none" }}
+  />
+  
+  <label
+    htmlFor="cover"
+    className="secondary-button"
+    style={{
+      display: "inline-flex",
+      width: "fit-content",
+      cursor: "pointer",
+    }}
+  >
+    {coverUrl
+      ? t("books.changeCover")
+      : t("books.chooseCover")}
+  </label>
+
+{coverUrl && (
+  <img
+    src={coverUrl}
+    alt={t("books.coverPreviewAlt")}
+    style={{
+      width: "140px",
+      height: "190px",
+      objectFit: "cover",
+      borderRadius: "8px",
+    }}
+  />
+)}
 
 
       <div className="form-actions">
@@ -311,6 +380,7 @@ function BookForm({
           {t("common.close")}
         </button>
       </div>
+
     </form>
   );
 }

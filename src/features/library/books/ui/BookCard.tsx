@@ -127,7 +127,7 @@ import {
                 opacity: 0.82,
               }}
             >
-              {t(`genres.${book.genre}`, { defaultValue: book.genre })}
+              {t(`books.genres.${book.genre}`, { defaultValue: book.genre })}
             </Typography>
   
             <Box
