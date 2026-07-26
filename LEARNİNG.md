@@ -46,3 +46,38 @@ Projeyi ilk açtığımızda kayıtlı veri varsa localStorage'dan çekeriz, yok
 Format/stil tutarsızlığıyla doğrudan bir ilişkisi yok. Ama okunurluk bozuldukça ve proje büyüdükçe spaghetti koda yol açabilcek bir nedendir.
 
 Eğer tutarsız yazarsak başka birinin kodumuzu okuması zorlaşır, zaman kaybettirir. Hata ayıklamada;isimlendirme farklıysa(book_name, bookName, title) ilgili kodu bulmak daha uzun sürer. Bu da geliştirme süresini ve bakım maliyetini artırır.
+
+
+
+
+
+
+BÖLÜM 2
+
+1- Çünkü sadece konsola bilgi yazdırır. Aslında hatanın nerde olduğunu o bilgiyle anlayan biziz. Hatayı engellemez. Kullanıcıyı ilgilendiren bir hata veya uyarı, konsola değil arayüze gösterilmelidir. useState ile hata mesajı ekranda gösterilebilir.
+
+
+
+2- formDialog,date.ts , welcome.tsx
+Ölü kod neden zararlıdır? 
+-kodu okumayı zorlaştırır.
+-projeyi gereksiz büyütür.
+-bakım maileytini arttırır. 
+
+
+
+3- "Kullanıcıya görünen metin" sadece ekranda yazı olarak görünen midir? Hayır ekranda yazı olarak görünenler değil uygulamayı kullanırken görebileceği her türlü metindir. 
+
+Ekran okuyucu (screen reader) kullanan biri uygulamanda ne "duyar"? Başlıklar buton yazıları ,form etiketlerı( label), placeholderlar(kitap adı girin yazar adı girin..) ,hata mesajı uyarılar boş durum mesajları, dialog boşlukları.
+
+aria-label nedir? Ekran okuyuculara bir öğenin ne işe yaradığını söyleyen açıklama metnidir.
+
+
+
+4-Türkçe kalan bir yer var mı? Ben 2 eksik anahtar + 1 şüpheli buldum.--- şüpheli olan en.json dystopia: dystopian, dystopia olarak düzelttim. (İnşallah odur).
+Çeviri dosyasındaki her kelime ekranda görünmediği için ekrandan bulamadım eksik anahtarları.
+-küçük bir node.js scripti: En basit en öğreticisi. Bir script yazarız tr.json ve en.json dosyalarını okur tüm anahtarları çıkarır. Eksik olanları listeler:
+Missing in en.json: - books.genres.classic - books.genres.mystery gibi.
+Script eksik anahtarı bulur, yanlış çeviriyi bulamaz.
+
+
