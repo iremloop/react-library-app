@@ -7,29 +7,29 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import type { Book } from "../../books/model/types";
-import type { Loan } from "../model/types";
-
+import type { Loan, LoanBook } from "../model/types";
+import { formatDate,  getDayDifference, getTodayAsDateString, } from "../../../../shared/utils/date";
+ 
 import DataTable from "../../../../shared/ui/DataTable";
 import TableState from "../../../../shared/ui/TableState";
 
 type LoanListProps = {
-  books: Book[];
+  books: LoanBook[];
   loans: Loan[];
-  onCreateLoan: (book: Book) => void;
+  onCreateLoan: (book: LoanBook) => void;
   onEditLoan: (
-    book: Book,
+    book: LoanBook,
     loan: Loan,
   ) => void;
 };
 
 type ActiveLoanRow = {
-  book: Book;
+  book: LoanBook;
   loan?: Loan;
 };
 
 type ReturnedLoanRow = {
-  book: Book;
+  book: LoanBook;
   loan: Loan;
 };
 
@@ -39,60 +39,7 @@ function normalizeText(value: string) {
     .toLocaleLowerCase("tr-TR");
 }
 
-function formatDate(value: string) {
-  if (!value) {
-    return "-";
-  }
 
-  const [year, month, day] =
-    value.split("-");
-
-  return `${day}.${month}.${year}`;
-}
-
-function dateToUtc(value: string) {
-  const [year, month, day] =
-    value.split("-").map(Number);
-
-  return Date.UTC(
-    year,
-    month - 1,
-    day,
-  );
-}
-
-function getTodayAsDateString() {
-  const now = new Date();
-
-  const year = now.getFullYear();
-
-  const month = String(
-    now.getMonth() + 1,
-  ).padStart(2, "0");
-
-  const day = String(
-    now.getDate(),
-  ).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-}
-
-function getDayDifference(
-  laterDate: string,
-  earlierDate: string,
-) {
-  const millisecondsPerDay =
-    1000 * 60 * 60 * 24;
-
-  return Math.max(
-    0,
-    Math.floor(
-      (dateToUtc(laterDate) -
-        dateToUtc(earlierDate)) /
-        millisecondsPerDay,
-    ),
-  );
-}
 
 function SectionTitle({
   title,

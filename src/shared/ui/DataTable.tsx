@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 export type DataTableColumn<T> = {
   key: string;
@@ -17,11 +18,12 @@ function DataTable<T>({
   columns,
   getRowKey,
 }: DataTableProps<T>) {
+  const { t } = useTranslation();
   return (
     <div
       className="data-table-wrapper"
       role="region"
-      aria-label="Veri tablosu"
+      aria-label={t("common.dataTable")}
       tabIndex={0}
     >
       <table className="data-table">

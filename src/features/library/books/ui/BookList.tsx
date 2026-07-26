@@ -1,8 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import BookCard from "./BookCard";
 import type { Book } from "../model/types";
+import TableState from "../../../../shared/ui/TableState";
 
 type BookListProps = {
   books: Book[];
@@ -21,21 +22,10 @@ function BookList({
 
   if (books.length === 0) {
     return (
-      <Box
-        sx={{
-          paddingY: 8,
-          paddingX: 3,
-          textAlign: "center",
-          border: "1px dashed",
-          borderColor: "divider",
-          borderRadius: 3,
-          backgroundColor: "background.paper",
-        }}
-      >
-        <Typography color="text.secondary">
-          {t("books.empty")}
-        </Typography>
-      </Box>
+      <TableState
+        empty
+        emptyMessage={t("books.empty")}
+      />
     );
   }
 

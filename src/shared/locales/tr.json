@@ -5,7 +5,8 @@
   },
   "navigation": {
     "books": "Kitaplar",
-    "loans": "Ödünçler"
+    "loans": "Ödünçler",
+    "mainNavigation": "Ana sayfa navigasyonu"
   },
   "common": {
     "actions": "İşlemler",
@@ -17,7 +18,9 @@
     "close": "Kapat",
     "confirm": "Onayla",
     "loading": "Yükleniyor...",
-    "error": "Bir hata oluştu."
+    "error": "Bir hata oluştu.",
+    "dataTable": "Veri tablosu"
+
   },
 
   "books": {

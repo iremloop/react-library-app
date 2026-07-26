@@ -5,8 +5,7 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 
-import type { Book } from "../../books/model/types";
-import type { Loan } from "../model/types";
+import type { Loan, LoanBook } from "../model/types";
 
 import LoanList from "../ui/LoanList";
 import LoanDialog, {
@@ -17,7 +16,7 @@ import ConfirmDialog from "../../../../shared/ui/ConfirmDialog";
 import PageHeader from "../../../../shared/ui/PageHeader";
 
 type LoansPageProps = {
-  books: Book[];
+  books: LoanBook[];
   loans: Loan[];
   setLoans: Dispatch<
     SetStateAction<Loan[]>
@@ -27,6 +26,7 @@ type LoansPageProps = {
 type PendingLoan = {
   bookId: number;
   bookTitle: string;
+  bookAuthor: string;
   values: LoanFormValues;
   lateReturnCount: number;
 };
@@ -80,7 +80,7 @@ function LoansPage({
     useState(false);
 
   const [selectedBook, setSelectedBook] =
-    useState<Book | undefined>();
+    useState<LoanBook | undefined>();
 
   const [selectedLoan, setSelectedLoan] =
     useState<Loan | undefined>();
@@ -88,7 +88,7 @@ function LoansPage({
   const [pendingLoan, setPendingLoan] =
     useState<PendingLoan | undefined>();
 
-  function openCreateDialog(book: Book) {
+  function openCreateDialog(book: LoanBook) {
     const hasActiveLoan = loans.some(
       (loan) =>
         loan.bookId === book.id &&
@@ -105,7 +105,7 @@ function LoansPage({
   }
 
   function openEditDialog(
-    book: Book,
+    book: LoanBook,
     loan: Loan,
   ) {
     setSelectedBook(book);
@@ -121,6 +121,8 @@ function LoansPage({
 
   function createLoanDirectly(
     bookId: number,
+    bookTitle: string,
+    bookAuthor: string,
     values: LoanFormValues,
   ) {
     const hasActiveLoan = loans.some(
@@ -136,6 +138,8 @@ function LoansPage({
     const newLoan: Loan = {
       id: Date.now(),
       bookId,
+      bookTitle,
+      bookAuthor,
       borrower: values.borrower,
       loanDate: values.loanDate,
       plannedReturnDate:
@@ -171,6 +175,7 @@ function LoansPage({
       setPendingLoan({
         bookId: selectedBook.id,
         bookTitle: selectedBook.title,
+        bookAuthor: selectedBook.author,
         values,
         lateReturnCount,
       });
@@ -181,6 +186,8 @@ function LoansPage({
 
     createLoanDirectly(
       selectedBook.id,
+      selectedBook.title,
+      selectedBook.author,  
       values,
     );
   }
@@ -192,6 +199,8 @@ function LoansPage({
 
     createLoanDirectly(
       pendingLoan.bookId,
+      pendingLoan.bookTitle,
+      pendingLoan.bookAuthor,
       pendingLoan.values,
     );
 

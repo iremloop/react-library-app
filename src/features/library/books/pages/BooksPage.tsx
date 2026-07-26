@@ -6,14 +6,11 @@ import { useState } from "react";
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import PageHeader from "../../../../shared/ui/PageHeader";
+import ConfirmDialog from "../../../../shared/ui/ConfirmDialog";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -49,13 +46,21 @@ function BooksPage({
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  function removeCurrentFocus() {
+    const activeElement = document.activeElement;
+  
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  }
   function openAddBookDialog() {
-    console.log("Yeni kitap ekleme butonuna basıldı.");
+    removeCurrentFocus();
     setSelectedBook(undefined);
     setIsBookDialogOpen(true);
   }
 
   function openEditBookDialog(book: Book) {
+    removeCurrentFocus();
     setSelectedBook(book);
     setIsBookDialogOpen(true);
   }
@@ -66,6 +71,7 @@ function BooksPage({
   }
 
   function openBookDetails(book: Book) {
+    removeCurrentFocus();
     setDetailsBook(book);
   }
 
@@ -82,7 +88,6 @@ function BooksPage({
     coverUrl: string
 
   ) {
-    console.log("publisher:", publisher);
     if (selectedBook) {
       setBooks((currentBooks) =>
         currentBooks.map((book) => {
@@ -126,6 +131,7 @@ function BooksPage({
   }
 
   function openDeleteDialog(book: Book) {
+    removeCurrentFocus();
     setBookToDelete(book);
   }
 
@@ -169,47 +175,20 @@ function BooksPage({
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: {
-            xs: "column",
-            sm: "row",
-          },
-          alignItems: {
-            xs: "stretch",
-            sm: "center",
-          },
-          justifyContent: "space-between",
-          gap: 2,
-          marginBottom: 4,
-        }}
-      >
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{
-            fontWeight: 750,
-          }}
-        >
-          {t("books.title")}
-        </Typography>
-
-        <Button
-          type="button"
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={openAddBookDialog}
-          sx={{
-            minHeight: 44,
-            borderRadius: 2,
-            textTransform: "none",
-            fontWeight: 650,
-          }}
-        >
-          {t("books.addButton")}
-        </Button>
-      </Box>
+    
+          <PageHeader
+        title={t("books.title")}
+        actions={
+          <Button
+            type="button"
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={openAddBookDialog}
+          >
+            {t("books.addButton")}
+          </Button>
+        }
+      />
 
             <TextField
         fullWidth
@@ -244,64 +223,15 @@ function BooksPage({
         onClose={closeBookDetails}
       />
 
-      <Dialog
+      <ConfirmDialog
         open={bookToDelete !== null}
-        onClose={closeDeleteDialog}
-        fullWidth
-        maxWidth="xs"
-        slotProps={{
-          paper: {
-            sx: {
-              borderRadius: 3,
-            },
-          },
-        }}
-      >
-        <DialogTitle
-          sx={{
-            fontWeight: 750,
-          }}
-        >
-          {t("books.deleteTitle")}
-        </DialogTitle>
-
-        <DialogContent>
-          <Typography>
-            {t("books.deleteMessage", {
-              title: bookToDelete?.title ?? "",
-            })}
-          </Typography>
-        </DialogContent>
-
-        <DialogActions
-          sx={{
-            paddingX: 3,
-            paddingBottom: 2.5,
-          }}
-        >
-          <Button
-            type="button"
-            onClick={closeDeleteDialog}
-            sx={{
-              textTransform: "none",
-            }}
-          >
-            {t("common.cancel")}
-          </Button>
-
-          <Button
-            type="button"
-            variant="contained"
-            color="error"
-            onClick={confirmDeleteBook}
-            sx={{
-              textTransform: "none",
-            }}
-          >
-            {t("common.delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        title={t("books.deleteTitle")}
+        message={t("books.deleteMessage", {
+          title: bookToDelete?.title ?? "",
+        })}
+        onConfirm={confirmDeleteBook}
+        onCancel={closeDeleteDialog}
+      />
     </Box>
   );
 }

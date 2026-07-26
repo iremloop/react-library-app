@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch, } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -94,7 +94,7 @@ function BookForm({
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     reset,
     setValue,
     formState: { errors },
@@ -113,9 +113,20 @@ function BookForm({
     },
   });
 
-  const selectedLanguage = watch("language");
-  const selectedPublisher = watch("publisher");
-  const coverUrl = watch("coverUrl"); 
+  const selectedLanguage = useWatch({
+    control,
+    name: "language",
+  });
+  
+  const selectedPublisher = useWatch({
+    control,
+    name: "publisher",
+  });
+  
+  const coverUrl = useWatch({
+    control,
+    name: "coverUrl",
+  });
 
 
   useEffect(() => {

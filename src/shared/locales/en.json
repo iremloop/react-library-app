@@ -5,7 +5,8 @@
   },
   "navigation": {
     "books": "Books",
-    "loans": "Loans"
+    "loans": "Loans",
+     "mainNavigation": "Main navigation"
   },
   "common": {
     "actions": "Actions",
@@ -17,7 +18,9 @@
     "close": "Close",
     "confirm": "Confirm",
     "loading": "Loading...",
-    "error": "An error occurred."
+    "error": "An error occurred.",
+    "dataTable": "Data table"
+
   },
   "books": {
     "title": "Books",
@@ -62,7 +65,7 @@
   "fantasy": "Fantasy",
   "history": "History",
   "biography": "Biography",
-  "dystopia": "Dystopian",
+  "dystopia": "Dystopia",
   "psychology": "Psychology"
 },
 

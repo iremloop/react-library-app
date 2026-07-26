@@ -150,7 +150,7 @@ function App() {
             <Tabs
               value={activePage}
               onChange={changePage}
-              aria-label="Ana sayfa navigasyonu"
+              aria-label={t("navigation.mainNavigation")}
               className="navigation-tabs"
             >
               <Tab

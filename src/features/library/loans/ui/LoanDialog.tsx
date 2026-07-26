@@ -1,6 +1,4 @@
-import {
-    useEffect,
-    useState,
+import { useState
   } from "react";
   import {
     Button,
@@ -13,8 +11,7 @@ import {
   } from "@mui/material";
   import { useTranslation } from "react-i18next";
   
-  import type { Book } from "../../books/model/types";
-  import type { Loan } from "../model/types";
+  import type { Loan , LoanBook } from "../model/types";
   
   export type LoanFormValues = {
     borrower: string;
@@ -25,7 +22,7 @@ import {
   
   type LoanDialogProps = {
     open: boolean;
-    book?: Book;
+    book?: LoanBook;
     initialLoan?: Loan;
     onClose: () => void;
     onSubmit: (
@@ -33,30 +30,35 @@ import {
     ) => void;
   };
   
-  function LoanDialog({
-    open,
+  function LoanDialogForm({
     book,
     initialLoan,
     onClose,
     onSubmit,
-  }: LoanDialogProps) {
+  }: Omit<LoanDialogProps, "open">) {
     const { t } = useTranslation();
   
-    const [borrower, setBorrower] =
-      useState("");
-  
-    const [loanDate, setLoanDate] =
-      useState("");
-  
+    const [borrower, setBorrower] = useState(
+      initialLoan?.borrower ?? "",
+    );
+    
+    const [loanDate, setLoanDate] = useState(
+      initialLoan?.loanDate ?? "",
+    );
+    
     const [
       plannedReturnDate,
       setPlannedReturnDate,
-    ] = useState("");
-  
+    ] = useState(
+      initialLoan?.plannedReturnDate ?? "",
+    );
+    
     const [
       actualReturnDate,
       setActualReturnDate,
-    ] = useState("");
+    ] = useState(
+      initialLoan?.actualReturnDate ?? "",
+    );
   
     const [
       borrowerError,
@@ -78,32 +80,6 @@ import {
       setActualReturnDateError,
     ] = useState("");
   
-    useEffect(() => {
-      if (!open) {
-        return;
-      }
-  
-      if (initialLoan) {
-        setBorrower(initialLoan.borrower);
-        setLoanDate(initialLoan.loanDate);
-        setPlannedReturnDate(
-          initialLoan.plannedReturnDate,
-        );
-        setActualReturnDate(
-          initialLoan.actualReturnDate,
-        );
-      } else {
-        setBorrower("");
-        setLoanDate("");
-        setPlannedReturnDate("");
-        setActualReturnDate("");
-      }
-  
-      setBorrowerError("");
-      setLoanDateError("");
-      setPlannedReturnDateError("");
-      setActualReturnDateError("");
-    }, [open, initialLoan]);
   
     function handleSubmit() {
       const cleanBorrower = borrower.trim();
@@ -176,18 +152,14 @@ import {
       });
     }
   
-    return (
-      <Dialog
-        open={open}
-        onClose={onClose}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle>
-          {initialLoan
-            ? t("loans.edit")
-            : t("loans.create")}
-        </DialogTitle>
+
+return (
+  <>
+    <DialogTitle>
+      {initialLoan
+        ? t("loans.edit")
+        : t("loans.create")}
+    </DialogTitle>
   
         <DialogContent>
           <Stack
@@ -306,8 +278,39 @@ import {
             {t("common.save")}
           </Button>
         </DialogActions>
-      </Dialog>
-    );
-  }
+        </>
+);
+}
+
+function LoanDialog({
+  open,
+  book,
+  initialLoan,
+  onClose,
+  onSubmit,
+}: LoanDialogProps) {
+  const formKey = initialLoan
+    ? `edit-${initialLoan.id}`
+    : `create-${book?.id ?? "empty"}`;
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="sm"
+    >
+      {open && (
+        <LoanDialogForm
+          key={formKey}
+          book={book}
+          initialLoan={initialLoan}
+          onClose={onClose}
+          onSubmit={onSubmit}
+        />
+      )}
+    </Dialog>
+  );
+}
   
   export default LoanDialog;

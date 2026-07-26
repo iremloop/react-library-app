@@ -15,5 +15,15 @@ export function toBook(bookDto: BookDto): Book {
     isbn: bookDto.isbn,
     publisher: bookDto.publisher,
     language: bookDto.language,
+
   };
+}
+
+export function test() {
+
+  return(
+    <h1>merhaba</h1>
+  )
+
+
 }
