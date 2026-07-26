@@ -18,12 +18,3 @@ export function toBook(bookDto: BookDto): Book {
 
   };
 }
-
-export function test() {
-
-  return(
-    <h1>merhaba</h1>
-  )
-
-
-}
