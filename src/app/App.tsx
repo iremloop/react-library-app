@@ -14,16 +14,16 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import BooksPage from "./features/library/books/pages/BooksPage";
-import LoansPage from "./features/library/loans/pages/LoansPage";
+import BooksPage from "../features/library/books/pages/BooksPage";
+import LoansPage from "../features/library/loans/pages/LoansPage";
 
-import { getBooks } from "./features/library/books/api/client";
-import { getLoans } from "./features/library/loans/api/client";
+import { getBooks } from "../features/library/books/api/client";
+import { getLoans } from "../features/library/loans/api/client";
 
-import type { Book } from "./features/library/books/model/types";
-import type { Loan } from "./features/library/loans/model/types";
+import type { Book } from "../features/library/books/model/types";
+import type { Loan } from "../features/library/loans/model/types";
 
-import "./App.css";
+import "./styles/App.css";
 
 type Page = "books" | "loans";
 
@@ -37,11 +37,12 @@ function readStoredBooks(): Book[] {
     }
 
     return JSON.parse(storedBooks) as Book[];
-  } catch {
+  } catch 
+  {
+  
     return getBooks();
   }
-}
-
+} 
 function readStoredLoans(): Loan[] {
   try {
     const storedLoans =
@@ -181,10 +182,10 @@ function App() {
         </Container>
       </AppBar>
 
-      <Container
-  maxWidth={false}
-  className="page-container"
->
+          <Container
+            maxWidth={false}
+            className="page-container"
+          >
         {activePage === "books" ? (
           <BooksPage
             books={books}

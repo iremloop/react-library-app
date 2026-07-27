@@ -240,7 +240,7 @@ function LoansPage({
   }
 
   return (
-    <div className="books-page">
+    <div className="loans-page">
       <PageHeader
         title={t("loans.title")}
       />

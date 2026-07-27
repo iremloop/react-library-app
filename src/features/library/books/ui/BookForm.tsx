@@ -6,17 +6,6 @@ import { z } from "zod";
 
 import type { Book } from "../model/types";
 
-type BookFormData = {
-  title: string;
-  author: string;
-  genre: string;
-  language: string;
-  customLanguage?: string;
-  publisher: string;
-  customPublisher?: string;
-  coverUrl?: string;
-};
-
 type BookFormProps = {
   initialBook?: Book;
   onSubmit: (title: string, author: string,  genre: string, language: string, publisher: string, coverUrl: string) => void;
@@ -91,6 +80,9 @@ function BookForm({
   coverUrl: z.string().optional(),
   });
 
+  type BookFormData =
+  z.infer<typeof bookFormSchema>;
+  
   const {
     register,
     handleSubmit,

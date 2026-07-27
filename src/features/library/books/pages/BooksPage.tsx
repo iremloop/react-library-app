@@ -82,9 +82,9 @@ function BooksPage({
   function handleBookSubmit(
     title: string,
     author: string,
+    publisher:string,
     genre: string,
     language: string,
-    publisher:string,
     coverUrl: string
 
   ) {
@@ -203,27 +203,27 @@ function BooksPage({
           marginBottom: 3,
         }}
       />
-      <BookList
+            <BookList
          books={filteredBooks}
         onViewDetails={openBookDetails}
         onEdit={openEditBookDialog}
         onDelete={openDeleteDialog}
       />
 
-      <BookDialog
+            <BookDialog
         open={isBookDialogOpen}
         onClose={closeBookDialog}
         onSubmit={handleBookSubmit}
         initialBook={selectedBook}
       />
 
-      <BookDetailsDialog
+            <BookDetailsDialog
         book={detailsBook}
         open={detailsBook !== null}
         onClose={closeBookDetails}
       />
 
-      <ConfirmDialog
+            <ConfirmDialog
         open={bookToDelete !== null}
         title={t("books.deleteTitle")}
         message={t("books.deleteMessage", {
