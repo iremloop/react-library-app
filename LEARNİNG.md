@@ -242,3 +242,60 @@ Böylece theme’deki mavi değişirse loanlist de otomatik değişir.
 Bir problemin projede tek çözümü olması önemlidir çünkü aynı işi yapan birden fazla kod bulunduğunda bakım zorlaşır. Bir değişiklik veya hata düzeltmesi gerektiğinde bütün çözümlerin tek tek güncellenmesi gerekir. Bunlardan biri unutulursa uygulamada tutarsızlık oluşur. Ortak bir bileşen kullanıldığında ise değişiklik tek noktadan yapılır ve bu değişiklik ilgili tüm ekranlara otomatik olarak yansır.
 
 Aynı işin projede iki farklı çözümü varsa, bir hata düzeltmesi veya yeni özellik eklendiğinde bütün çözümler ayrı ayrı güncellenmelidir. Bunlardan biri unutulursa uygulamanın bazı bölümleri düzelirken bazıları eski haliyle kalır. Bu da bakım maliyetini artırır ve tutarsız davranışlara neden olur.
+
+
+# BÖLÜM 7
+
+## Silinen kitap library-books içinden silindi mi? 
+
+evet
+
+## library-loans içinde o kitaba ait kayıt(lar) duruyor mu? 
+
+evet
+
+## Ekranda görünüyorlar mı — görünmüyorlarsa onları hangi kod gizliyor (LoanList içinde ara)? 
+
+Görünmüyorlar.
+ const book = books.find(
+          (currentBook) =>
+            currentBook.id === loan.bookId,
+        );
+
+        if (!book) {
+          return undefined;
+        }
+
+        return {
+          book,
+          loan,
+        };
+      })
+      .filter(
+        (
+          row,
+        ): row is ReturnedLoanRow =>
+          row !== undefined,
+      ) kodu gizliyor.
+
+## "Öksüz (orphan) kayıt" ne demek ve gerçek bir sistemde neden ciddi bir sorundur? 
+
+Öksüz kayıt, işaret ettiği veri artık olmadığı halde veritabanında kalmaya devam eden kayıttır. Gerçek sistemlerde öksüz kayıt ciddi bir sorundur çünkü verinin doğruluğunu ve tutarlılığını bozar.
+
+## unknown tipi ne anlama gelir?
+
+unknown, TypeScript'te "Bu değerin tipi var ama şu anda ne olduğunu bilmiyorum." anlamına gelir.
+
+## Bu prop neden buraya konmuş ama işi yarım kalmış olabilir? 
+
+setLoans prop'u ileride kitap işlemleri sırasında ödünç kayıtlarını da güncellemek amacıyla eklemişti . Ancak bu özellik tamamlanmadığı için prop ya kullanılmadan kaldı. 
+
+## Kitap silinince ödünç kayıtlarına ne olmalı — üç seçeneği yaz (birlikte sil / aktif ödünç varsa silmeyi engelle / geçmişi koru) ve her birinin artı/eksisini düşün.
+
+1-Kitapla birlikte ödünç kaydını da silmek: Öksüz kayıt oluşmaz. Sistem temiz kalır ve uygulanması kolaydır.Geçmiş bilgiler kaybolur. Kitabı daha önce kim aldı, ne zaman aldı, geç mi getirdi gibi bilgiler artık görülemez. Bu yaklaşım küçük ve geçmişin önemli olmadığı sistemlerde kullanılabilir.
+
+2-Aktif ödünç varsa kitabın silinmesi engellenir: Ödünçte olan bir kitabın yanlışlıkla silinmesini engeller. Veri tutarlılığı korunur. Gerçek sistemlerde oldukça mantıklı ve güvenli bir kuraldır.
+
+3-Geçmiş ödünç kayıtlarını korumak: Geçmiş tamamen korunur. Raporlar, kullanıcı geçmişi ve gecikme bilgileri bozulmaz. Öksüz kayıt oluşmaz. Sistem biraz daha karmaşık olur. Her yerde silinmiş kitapları filtrelemek gerekir. Ayrıca kullanıcıya geçmiş kayıtta kitabın silinmiş olduğunu göstermek gerekebilir.
+
+Hangisi mantıklı: aktif ödünç kaydı varsa kitabın silinmesi engellensin. Yoksa silinsin. Silinen kayıtlar için de ek bir sayfa açılabilir(arşiv) yanlışlıkla silinen kitaplar geri alınabilir ve geçmiş veriler korunur.
