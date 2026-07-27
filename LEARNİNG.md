@@ -1,11 +1,11 @@
 # BÖLÜM 1
 
-# # 1- 
+# # 1
 return React'in ekrana çizeceği bir arayüz (JSX) döndürüyorsa .tsx, normal veri döndürüyorsa .ts kullanılır. Bir .ts dosyasının içine JSX yazarsak .ts dosyası bunu anlayamadığı için hata verir. .ts dosyasını .tsx yapabiliriz. O zaman hatalar kaybolur ama bu mantıklı bir kullanım değildir çünkü .ts nin görevi veri döndürmektir içine JSX yazmak saçma olur. Dosya adını hata almamak için .tsx yaptık ama return Jsx döndürmediği için ekranda görünmeyecek. .tsx olması sadece hata almadan içine JSX yazmamıza izin verdi.
 
 
 
-# # #2-
+# # 2
 Vite: projeyi çok hızlı açan ve tarayıcıya gösteren build tool(geliştirme aracı). 
 -Npm run dev’de vite proje geliştirileceğini anlar. package.json okunur, vite çalışır,vite.config.ts okunur, main.tsx bulunur, bütün importlar takip edilir, TS+JSX dönüştürülür, localhost açılır dosyalar sürekli izlenir.
 -Npm run build’de vite artık geliştirme yapılmayacağını, projenin artık internete yükleneceğini anlar. Vite başlar, tüm dosyaları bulur, TS JSye dönüştürülür, JSX JS ye dönüştürülür, kullanılmayan kodları siler, kodları küçültür, disk klasörünü oluşturur.
@@ -18,7 +18,7 @@ Kullanılan komut: npm create vite@latest
 
 
 
-# # 3-
+# # 3
 TypeScript strict mode:typescriptin katı kurallar koyarak olası hataları kodu çalıştırmadan önce yakalamamızı sağlayan özelliği. Kod çalışmadan beni uyarır.
 True ise bu özellik açık, false ise kapalıdır. Açık olduğunda: Yanlış veri tiplerini algılar,null ve undefined hatalarını önceden gösterir, eksik ve hatalı kod yazıldığında uyarı verir, daha güvenli ve hatasız kod yazmanı sağlar.
 Kapalı olduğunda: Hatalar varken kod yine derlenir ama runtimeda hata alma ihtimalimiz artar.
@@ -30,7 +30,7 @@ Bunlar ts'in en önemli güvenlik kurallarından ikisi. Bu özellikler benim pro
 
 
 
-# # 4- 
+# # 4
 Dependincies, projenin çalışması için gerekli olan tüm kütüphanelerin listelendiği bölüm. npm install, package.json dosyasını okur ordaki paketleri internetten indirir ve node_modules klasörüne indirir.
 Bir paketi kodumda import edebilmem için o paketin önce projeye kurulmuş olması gerekir. Yani paket package.json dosyasında kayıtlı olmalı ve node_modules klasöründe bulunmalıdır. Aksi halde typescript veya vite paketi bulamaz ve hata verir.
 **Diyelim ki birisi package.json dosyasından satırlardan birini sildi ama node_modules ten silmedi. import package.json'a değil node_modules'e baktığı için package.json da olmayan paketi kullandı. Bu geçici olarak çalışabilir. Ama güvenli değildir. Benim bilgisayarımda çalışır ama bu projeyi githuba yüklediğimde başka biri npm install yaptığında package.json da o paket olmadığı için bilgisayara npm onu kuramaz ve proje çalışmaz.
@@ -39,14 +39,14 @@ Transitive dependency, senin doğrudan kurmadığın ama kurduğun başka bir pa
 
 
 
-# # 5-  
+# # 5 
 Local storage: Tarayıcının kullanıcıya ait verileri kalıcı olarak saklamasını sağlayan bir depolama alanıdır. Sayfa yenilense ve tarayıcı kapatılsa bile veriler silinmez. Hızlı erişim için tasarlanmıştır. 5-10 mb alanı depolama vardır. String saklayabilir. Güvenli değildir. Hassas olmayan kullanıcı verileerini saklamak için tasarlanmıştır. Kullanıcı konsoldan bilgileri. görebilir, silebilir, değiştirebilir.
 
 Projeyi ilk açtığımızda kayıtlı veri varsa localStorage'dan çekeriz, yoksa yeni girilen bilgileri localStorage'a kaydederiz.
 
 
 
-# # 6- 
+# # 6
 Spaghetti kod: Okuması, anlaşılması, değiştirilmesi zor ve her şeyin birbirine girdiği kod.
 
 Format/stil tutarsızlığıyla doğrudan bir ilişkisi yok. Ama okunurluk bozuldukça ve proje büyüdükçe spaghetti koda yol açabilcek bir nedendir.
@@ -60,12 +60,12 @@ Eğer tutarsız yazarsak başka birinin kodumuzu okuması zorlaşır, zaman kayb
 
 # BÖLÜM 2
 
-# # 1- 
+# # 1
 Çünkü sadece konsola bilgi yazdırır. Aslında hatanın nerde olduğunu o bilgiyle anlayan biziz. Hatayı engellemez. Kullanıcıyı ilgilendiren bir hata veya uyarı, konsola değil arayüze gösterilmelidir. useState ile hata mesajı ekranda gösterilebilir.
 
 
 
-# # 2- 
+# # 2
 formDialog,date.ts , welcome.tsx
 Ölü kod neden zararlıdır? 
 -kodu okumayı zorlaştırır.
@@ -74,7 +74,7 @@ formDialog,date.ts , welcome.tsx
 
 
 
-# # 3- 
+# # 3
 "Kullanıcıya görünen metin" sadece ekranda yazı olarak görünen midir? Hayır ekranda yazı olarak görünenler değil uygulamayı kullanırken görebileceği her türlü metindir. 
 
 Ekran okuyucu (screen reader) kullanan biri uygulamanda ne "duyar"? Başlıklar buton yazıları ,form etiketlerı( label), placeholderlar(kitap adı girin yazar adı girin..) ,hata mesajı uyarılar boş durum mesajları, dialog boşlukları.
@@ -83,7 +83,7 @@ aria-label nedir? Ekran okuyuculara bir öğenin ne işe yaradığını söyleye
 
 
 
-# # 4-
+# # 4
 Türkçe kalan bir yer var mı? Ben 2 eksik anahtar + 1 şüpheli buldum.--- şüpheli olan en.json dystopia: dystopian, dystopia olarak düzelttim. (İnşallah odur).
 Çeviri dosyasındaki her kelime ekranda görünmediği için ekrandan bulamadım eksik anahtarları.
 -küçük bir node.js scripti: En basit en öğreticisi. Bir script yazarız tr.json ve en.json dosyalarını okur tüm anahtarları çıkarır. Eksik olanları listeler:
@@ -159,3 +159,38 @@ App.tsx de bu görevleri yaptığı için herhangi bir kitap veya ödünç özel
 
 VS Code'un TypeScript › Update Imports On File Move özelliği açık olduğu için kendi kendine yollar düzeldi. Düzelmeseydi taşıdığımız dosyaların import pathlerini elimizle tek tek düzeltmemiz gerekirdi.
 
+
+ # BÖLÜM 4
+
+ ## "Bir feature başka bir feature'ı import edemez." Bu kural neden var? İki feature birbirine bağlanırsa, proje büyüdükçe (10 feature, 3 geliştirici) ne olur?
+
+ Amaç bağımlılığı azaltmak. Bu kuralın temelinde single responsibility principle ve Low coupling(düşük bağımlılık) prensipleri var. Bir feature sadece kendi işini bilmeli, diğer feature'ların iç yapısını bilmemelidir.
+
+-Bir değişiklik birçok yeri bozar. Bir dosyanın yeri değiştiğinde import edilen yolların da değişmesi gerekir. Değiştirilmezse hatalar ortaya çıkar.
+-Geliştiriciler birbirini beklemek zorunda kalır. Herkesin işi birbirine dokunur bir kişi değişiklik yaptığında diğerlerinin kodu bozulabilir.
+-Test etmek zorlaşır.
+-Bir feature’ı başka projeye almak istersek yanında başka featureları da taşımak zorunda kalırız
+
+## Loans'un books'tan gerçekte istediği bilgi ne? 
+book id
+book title
+author
+
+##  Yönerge §6.12 bu problemi nasıl çözüyordu? "Denormalize veri" ne demek?
+
+ Loan, başka featuredan import etmek yerine ihtiyacı olan veriyi loan verisinin içinde tutuyor.
+ Denormalize veride, hız için aynı bilgi birden fazla yerde tutulur.
+
+ ##  Senin LoanDto'nda (loans/api/types.ts) bu çözüm için ne eksik?
+
+ Benim LoanDto tipimde bookTitle bilgisi eksik. Sadece bookId olduğu için loans, kitap adını öğrenmek için books feature'ına gitmek zorunda kalıyor. LoanDto içine bookTitle eklenirse loans kendi verisiyle çalışır ve feature sınırı ihlal edilmez.
+
+ ## Mock klasörünün feature tipine bağımlılığı
+
+`src/mock` klasörü herhangi bir feature'ın içinde değildir. Uygulama genelinde kullanılan sahte verileri sağlayan veri kaynağı katmanı gibi davranır.
+`src/mock/books.ts` dosyasının doğrudan `features/library/books/api/types.ts` dosyasından tip import etmesi, feature dışındaki bir klasörün feature'ın iç klasör yapısını bilmesine neden olur. Bu durumda `books` feature'ının içindeki dosyalar taşınırsa veya API tipleri yeniden düzenlenirse mock katmanı da etkilenir. Proje büyüdükçe mock klasörü birçok feature'ın iç detayına bağlı hale gelebilir.
+
+## Bu kuralı senin dikkatine bırakmak yerine makineye denetletmek mümkün mü? "ESLint no-restricted-imports" araştır. 
+
+Katman ve feature sınırlarını yalnızca geliştiricinin dikkatine bırakmak yerine ESLint'in no-restricted-imports kuralı ile otomatik olarak denetlemek mümkündür.
+no-restricted-imports, belirlediğin dosya veya klasörlerden import yapılmasını yasaklayan ESLint kuralıdır. Yani yeni bir paket kurmuyoruz, sadece mevcut ESLint'e yeni bir kural öğretiyoruz.
