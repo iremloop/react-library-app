@@ -194,3 +194,51 @@ author
 
 Katman ve feature sınırlarını yalnızca geliştiricinin dikkatine bırakmak yerine ESLint'in no-restricted-imports kuralı ile otomatik olarak denetlemek mümkündür.
 no-restricted-imports, belirlediğin dosya veya klasörlerden import yapılmasını yasaklayan ESLint kuralıdır. Yani yeni bir paket kurmuyoruz, sadece mevcut ESLint'e yeni bir kural öğretiyoruz.
+
+
+# BÖLÜM 5
+
+## theme.ts satır 16 → arka plan #f4f6f8. App.css satır 23 ve index.css satır 14 → #f4f6fa. İki değer farklı. Araştır: Uygulamada gerçekte hangisi görünüyor — DevTools ile nasıl anlarsın? "Tek tasarım kaynağı" hangisi olmalı? Kaybeden değer nereye gitmeli?
+
+#f4f6fa görünür. Devtoolsta body ve Appin rengine ve Appin boyutuna bakarız. App ekranın tamamını kapladığı için görünen renk appin rengi yani #f4f6fa. 
+Tek tasarım kaynağı bu projede theme.ts olmalı. Çünkü MUI kullanılıyor ve uygulamanın renk paleti burada tanımlanıyor. Kaybeden değer silinmeli. Yani App.css ve index.css içinde tekrar yazılan arka plan renkleri kaldırılmalı, arka plan yalnızca theme.ts içindeki palette.background.default üzerinden yönetilmelidir.
+
+## theme.ts satır 27 → Arial. index.css satır 2 → Inter. Uygulamada gerçekte hangisi görünüyor — DevTools ile nasıl anlarsın? "Tek tasarım kaynağı" hangisi olmalı? Kaybeden değer nereye gitmeli?
+
+Uygulamada theme.ts deki arial,sans-serif görünüyor. DevToolsda font family de hangisi baskın görünüyor. Tek tasarım kaynağı theme.ts. Kaybeden değer silinmeli.
+
+## rgba(37, 99, 235, 0.08)  Araştır: 37, 99, 235 hangi rengin RGB karşılığı? 
+
+#2563eb rengin karşılığı. Sonundaki 0.08 yüzde 8 opak demek. rgba şeffaf hali istenen renkler için.
+
+## Bu neden "sihirli sayı" sayılır ?
+
+Sayının aslında tema içinde anlamlı bir isimle (theme.palette.primary.main) zaten tanımlı olması ve o değeri tekrar etmesinden dolayı sihirli sayı sayılır.
+
+
+## tema rengi yarın değişirse bu satıra ne olur?
+
+Bir gün theme’de palette.primary.main değişirse loanlist eski maviyi kullanmaya devam eder. Uygulamada tutarsızlık oluşur. Renk değişikliklerine adapte olabilmesi için ve aynı zamanda şeffaflık da katmak istersek renge MUI’nın alpha fonksiyonunu kullanırız. 
+
+import { alpha } from "@mui/material/styles"; 
+backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.08)
+
+Böylece theme’deki mavi değişirse loanlist de otomatik değişir.
+
+##  MUI'de sx içinden tema paletine nasıl referans verilir?
+ 
+ sx={(theme) => ({ backgroundColor: theme.palette.primary.main })}
+ 
+##  Projede tekrar tekrar yazdığın fontWeight: 750 ve textTransform: "none" gibi stiller tema seviyesinde bir kez nasıl tanımlanır? ("MUI theme styleOverrides" araştır.)
+
+  MUI kütüphanesindeki hazır bileşenlerin (buton, kart, metin kutusu vb.) kendine ait standart stilleri vardır. styleOverrides özelliği sayesinde bu standart stilleri tek tek her sayfada değiştirmek yerine, tema dosyası üzerinden bütün uygulamada tek hamlede değiştirebilirsiniz.
+
+  MUI’de aynı stil birçok bileşende tekrar ediyorsa, bu stiller theme.ts içindeki components → MuiButton (veya ilgili bileşen) → styleOverrides altında bir kez tanımlanabilir.
+
+ ##  shared'a bir bileşen yazmak tek başına neden yetmez? "Bir problemin projede tek çözümü olur" ilkesi neden önemli — aynı işin iki çözümü yaşarsa, bir hata düzeltmesi geldiğinde ne olur?
+
+ Çünkü ortak bileşeni oluşturmakla iş bitmez; projenin diğer yerlerinin gerçekten o ortak bileşeni kullanması gerekir. Ortak problem belirlenmeli. Ortak bileşen yazılmalı. Aynı işi yapan eski kodlar kaldırılmalı. Bütün ilgili yerler ortak bileşene geçirilmelidir.
+
+Bir problemin projede tek çözümü olması önemlidir çünkü aynı işi yapan birden fazla kod bulunduğunda bakım zorlaşır. Bir değişiklik veya hata düzeltmesi gerektiğinde bütün çözümlerin tek tek güncellenmesi gerekir. Bunlardan biri unutulursa uygulamada tutarsızlık oluşur. Ortak bir bileşen kullanıldığında ise değişiklik tek noktadan yapılır ve bu değişiklik ilgili tüm ekranlara otomatik olarak yansır.
+
+Aynı işin projede iki farklı çözümü varsa, bir hata düzeltmesi veya yeni özellik eklendiğinde bütün çözümler ayrı ayrı güncellenmelidir. Bunlardan biri unutulursa uygulamanın bazı bölümleri düzelirken bazıları eski haliyle kalır. Bu da bakım maliyetini artırır ve tutarsız davranışlara neden olur.
