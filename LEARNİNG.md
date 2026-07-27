@@ -299,3 +299,160 @@ setLoans prop'u ileride kitap işlemleri sırasında ödünç kayıtlarını da 
 3-Geçmiş ödünç kayıtlarını korumak: Geçmiş tamamen korunur. Raporlar, kullanıcı geçmişi ve gecikme bilgileri bozulmaz. Öksüz kayıt oluşmaz. Sistem biraz daha karmaşık olur. Her yerde silinmiş kitapları filtrelemek gerekir. Ayrıca kullanıcıya geçmiş kayıtta kitabın silinmiş olduğunu göstermek gerekebilir.
 
 Hangisi mantıklı: aktif ödünç kaydı varsa kitabın silinmesi engellensin. Yoksa silinsin. Silinen kayıtlar için de ek bir sayfa açılabilir(arşiv) yanlışlıkla silinen kitaplar geri alınabilir ve geçmiş veriler korunur.
+
+
+
+# BÖLÜM 8
+
+## Ödünçler sayfasında "books-page"? Araştır: Bu nasıl olmuş olabilir? Kopyala-yapıştır neden spaghetti kod üretir?
+
+Kopyala-yapıştırla taşınan eski isimler, tekrarlanan mantık zamanla kodun hangi parçasının neden kullanıldığını belirsizleştirerek spaghetti kod oluşmasına neden olabilir.
+
+
+## Araştır: Prettier nedir? 
+
+Prettier, kodunu otomatik olarak düzenleyen (formatlayan) bir araçtır. Yani kodunun ne yaptığını değiştirmez, sadece görünüşünü düzeltir. Hata bulmaz.
+Girintileri, boşlukları, satır sonlarını, virgülleri, tırnakları, parantezlerin yerini, satır uzunluğunu düzenler.
+
+## EditorConfig nedir? 
+
+EditorConfig, projedeki herkesin editöründe aynı temel kod yazım ayarlarının (girinti, tab/boşluk, satır sonu, karakter kodlaması vb.) kullanılmasını sağlayan yapılandırma dosyasıdır.
+
+
+## Editöründe "format on save" nasıl açılır?
+
+VS Code'a kurulu olması gerekir. Ayarlardan açabiliriz ya da  
+“editor.formatOnSave": true, 
+"editor.defaultFormatter": “esbenp.prettier-vscode" ile aktifleştiririz.
+
+ ## Bunlar kurulursa yukarıdaki sorunlar bir daha oluşabilir mi? 
+  
+  inşallah hayır
+ 
+ ## Kendi projende spaghetti'ye en yakın bulduğun dosyayı seç ve nedenini yaz. 
+ 
+ library.css olabilir. Çünkü sayfanın nerdeyse tüm bileşemnlerinin özellikleri burda.
+ 
+  ## bir dosyanın büyümesi ne zaman "bunu bölmeliyim" sinyalidir 
+
+  Bir dosyanın büyümesi yalnızca satır sayısı arttığı için bölmeliyim sinyali vermez. Asıl sinyal, dosyanın birden fazla işi yapmaya başlamasıdır. 
+
+## yönergedeki hangi klasör (lib/) bunun için vardı?
+
+anlamadım 
+
+
+
+# BÖLÜM 6
+
+# Bölüm 6 — Tip Güvenliği ve Bağımlılıklar
+
+## 6.1 — strict'i aç. `tsconfig.app.json` dosyasında `"strict": true` yok. `strict` modunu açıp `npm run build` çalıştır. Çıkan hataları LEARNING.md'ye yaz ve düzelt
+Hata yok 
+
+
+
+## 6.2 — Zod vakası (Gerçek bir bağımlılık dersi) BookForm.tsx dosyası Zod import ediyor ancak package.json içinde Zod yok. Buna rağmen neden çalışıyordu? Temiz kurulum nedir? Neden doğrudan dependency olarak eklenmelidir?
+
+`BookForm.tsx` dosyası Zod paketini doğrudan import etmesine rağmen `package.json` içinde Zod bulunmuyordu. Buna rağmen proje çalışıyordu çünkü Zod, `eslint-plugin-react-hooks` paketinin transitive dependency'si (dolaylı bağımlılığı) olarak kurulmuştu.
+
+npm bir paket kurulurken yalnızca o paketi değil, onun ihtiyaç duyduğu bağımlılıkları da `node_modules` içine kurar. Bu nedenle TypeScript ve Vite, `node_modules/zod` klasörünü bulabiliyordu.
+
+Ancak bu güvenilir bir kullanım değildir. Projede doğrudan import edilen her paket `package.json` içinde doğrudan dependency olarak tanımlanmalıdır. Aksi halde Zod'u getiren paket ileride bu bağımlılığı kaldırırsa proje kırılabilir.
+
+Bu nedenle Zod'un şu komutla doğrudan projeye eklenmesi gerekir:
+
+```bash
+npm install zod
+```
+
+Temiz kurulum: `node_modules` klasörünün silinip projenin yalnızca `package.json` dosyasındaki bağımlılıklarla yeniden kurulmasıdır.
+
+Eğer kullandığın paket yalnızca transitive dependency olarak geliyorsa ve onu getiren paket değişirse veya kaldırılırsa temiz kurulumdan sonra proje "Cannot find module" hatasıyla çalışmaz.
+
+## 6.3 — `as` tehlikesi as anahtar kelimesi TypeScript'e ne söyler? Çalışma zamanında ne doğrular? Local Storage'daki `library-books` değerini `"merhaba"` yapınca ne oldu? Güvenilmeyen veriler için nasıl bir çözüm uygulandı?
+
+`as`, veriyi değiştirmez; yalnızca TypeScript'in tipi anlamasını sağlar.
+
+Çalışma zamanında hiçbir doğrulama yapmaz. Sadece derleme zamanında (compile time) etkilidir.
+
+DevTools → Application → Local Storage bölümünde `library-books` değerini `"merhaba"` olarak değiştirdim ve sayfayı yeniledim.
+
+`JSON.parse()` geçerli JSON bulamadığı için `SyntaxError` oluşturdu. Ancak uygulama çökmedi. Çünkü hata `try/catch` bloğu tarafından yakalandı ve bozuk veri kullanılmak yerine `getBooks()` ile varsayılan kitaplar yüklendi.
+
+Sonuç olarak:
+
+- Uygulama açılmaya devam etti.
+- Beyaz ekran oluşmadı.
+- Bozuk Local Storage verisi kullanılmadı.
+- Varsayılan kitaplar yüklendi.
+- `console.error` sayesinde hata konsolda görülebildi.
+
+
+Yönergenin ana fikri şuydu:
+
+> Dışarıdan gelen hiçbir veriye güvenme.
+
+API, Local Storage ve kullanıcı girişleri güvenilmeyen veri kaynaklarıdır. Bu veriler kullanılmadan önce doğrulanmalıdır.
+
+Bunun için:
+
+- Zod projeye eklendi.
+- Book ve Loan şemaları oluşturuldu.
+- `readStoredBooks()` ve `readStoredLoans()` fonksiyonlarında doğrulama yapıldı.
+
+Yeni kullanılan yapılar:
+
+- `try/catch` → Bozuk JSON'u yakalamak için.
+- `unknown` → Verinin tipinden henüz emin olmadığımızı belirtmek için.
+- `safeParse()` → Veriyi doğrulamak için.
+- `result.data` → Doğrulama başarılıysa güvenli veriyi kullanmak için.
+- **Fallback** → Doğrulama başarısız olursa `getBooks()` veya `getLoans()` ile varsayılan veriye dönmek için.
+
+Sonuç olarak artık akış şu şekilde oldu:
+
+```
+localStorage
+      ↓
+JSON.parse()
+      ↓
+Zod doğrulaması
+      ↓
+Geçerliyse kullan
+Geçersizse varsayılan veriye dön
+```
+
+Bu sayede Local Storage'dan gelen hiçbir veriye körü körüne güvenilmemiş oldu.
+
+
+## 6.4 — Pozisyonel parametre tuzağı İki string parametrenin yerini değiştirince TypeScript uyarıyor mu? Neden? Daha güvenli çözüm nedir? `z.infer` nedir? "Şema tek doğruluk kaynağıdır" ne demektir?
+
+İki string parametrenin yerini değiştirdiğimde TypeScript uyarmadı.
+
+Bunun nedeni TypeScript'in parametre isimlerini değil yalnızca tiplerini kontrol etmesidir. Her iki parametre de `string` olduğu için bunu geçerli kabul etti.
+
+Bu nedenle aynı tipte çok sayıda parametre almak hata yapmaya açıktır.
+
+Daha güvenli yaklaşım, çok sayıda parametre yerine tek bir nesne (`BookFormValues` gibi) almaktır.
+
+Böylece:
+
+- Parametre sırasına değil alan isimlerine güvenilir.
+- Yanlış sırada parametre gönderme hataları büyük ölçüde ortadan kalkar.
+
+### z.infer nedir?
+
+`z.infer`, yazdığın Zod şemasına bakarak TypeScript tipini otomatik üretir.
+
+BookForm içinde hem `BookFormData` tipi hem de Zod şeması ayrı ayrı tanımlanmıştı. Bu durum aynı bilginin iki yerde tekrar edilmesine neden oluyordu.
+
+Şema değişip TypeScript tipi güncellenmezse zamanla uyumsuzluk oluşabilir.
+
+`z.infer<typeof bookFormSchema>` kullanıldığında TypeScript tipi doğrudan Zod şemasından üretilir.
+
+Böylece:
+
+- Şema tek doğruluk kaynağı olur.
+- Tip ile şema birbirinden kopmaz.
+- Tekrar eden tanımlar ortadan kalkar.
+- Şema değiştiğinde TypeScript tipi de otomatik güncellenir.
