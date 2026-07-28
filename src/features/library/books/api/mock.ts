@@ -1,12 +1,12 @@
-import type { BookDto } from "../features/library/books/api/types";
+import type { BookDto } from "./types";
 
-import cover1984 from "../assets/covers/1984.jpg";
-import animalFarmCover from "../assets/covers/hayvanciftligi.jpeg";
-import kurkMantoluMadonnaCover from "../assets/covers/kurkmantolumadonna.jpeg";
-import chessCover from "../assets/covers/satranc.jpeg";
-import lesMiserablesCover from "../assets/covers/sefiller.png";
-import alchemistCover from "../assets/covers/simyaci.jpeg";
-import crimeAndPunishmentCover from "../assets/covers/sucveceza.jpeg";
+import cover1984 from "../../../../assets/covers/1984.jpg";
+import animalFarmCover from "../../../../assets/covers/hayvanciftligi.jpeg";
+import kurkMantoluMadonnaCover from "../../../../assets/covers/kurkmantolumadonna.jpeg";
+import chessCover from "../../../../assets/covers/satranc.jpeg";
+import lesMiserablesCover from "../../../../assets/covers/sefiller.png";
+import alchemistCover from "../../../../assets/covers/simyaci.jpeg";
+import crimeAndPunishmentCover from "../../../../assets/covers/sucveceza.jpeg";
 
 export const bookDtos: BookDto[] = [
   {

@@ -1,4 +1,4 @@
-import type { LoanDto } from "../features/library/loans/api/types";
+import type { LoanDto } from "./types";
 
 export const mockLoans: LoanDto[] = [
   {

@@ -1,4 +1,4 @@
-import { mockLoans } from "../../../../mock/loans";
+import { mockLoans } from "./mock";
 
 import { toLoan } from "./mappers";
 import type { Loan } from "../model/types";

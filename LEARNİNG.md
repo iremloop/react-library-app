@@ -327,7 +327,7 @@ VS Code'a kurulu olması gerekir. Ayarlardan açabiliriz ya da
 
  ## Bunlar kurulursa yukarıdaki sorunlar bir daha oluşabilir mi? 
   
-  inşallah hayır
+  Format kaynaklı sorunlar büyük ölçüde azalır ama mantıksal ve mimari sorunlar yine oluşabilir.
  
  ## Kendi projende spaghetti'ye en yakın bulduğun dosyayı seç ve nedenini yaz. 
  
@@ -339,7 +339,7 @@ VS Code'a kurulu olması gerekir. Ayarlardan açabiliriz ya da
 
 ## yönergedeki hangi klasör (lib/) bunun için vardı?
 
-anlamadım 
+lib, genellikle bir feature’ın içindeki yardımcı teknik kodlar için kullanılabilir.
 
 
 

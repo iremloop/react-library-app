@@ -1,4 +1,4 @@
-import { bookDtos } from "../../../../mock/books";
+import { bookDtos } from "./mock";
 import { toBook } from "./mappers";
 import type { Book } from "../model/types";
 

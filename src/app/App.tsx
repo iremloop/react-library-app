@@ -25,7 +25,38 @@ import type { Loan } from "../features/library/loans/model/types";
 
 import "./styles/App.css";
 
+import { z } from "zod";
+
 type Page = "books" | "loans";
+
+const bookSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  author: z.string(),
+  genre: z.string(),
+  coverUrl: z.string(),
+  summary: z.string(),
+  pageCount: z.number(),
+  publicationYear: z.number(),
+  isbn: z.string(),
+  publisher: z.string(),
+  language: z.string(),
+});
+
+const booksSchema = z.array(bookSchema);
+
+const loanSchema = z.object({
+  id: z.number(),
+  bookId: z.number(),
+  bookTitle: z.string(),
+  bookAuthor: z.string(),
+  borrower: z.string(),
+  loanDate: z.string(),
+  plannedReturnDate: z.string(),
+  actualReturnDate: z.string(),
+});
+
+const loansSchema = z.array(loanSchema);
 
 function readStoredBooks(): Book[] {
   try {
@@ -36,13 +67,22 @@ function readStoredBooks(): Book[] {
       return getBooks();
     }
 
-    return JSON.parse(storedBooks) as Book[];
-  } catch 
-  {
-  
-    return getBooks();
+    const parsedBooks: unknown =
+      JSON.parse(storedBooks);
+
+    const result =
+      booksSchema.safeParse(parsedBooks);
+
+      if (!result.success) {
+        return getBooks();
+      }
+
+      return result.data;
+    } catch {
+      return getBooks();
+    }
   }
-} 
+
 function readStoredLoans(): Loan[] {
   try {
     const storedLoans =
@@ -52,7 +92,17 @@ function readStoredLoans(): Loan[] {
       return getLoans();
     }
 
-    return JSON.parse(storedLoans) as Loan[];
+const parsedLoans: unknown =
+      JSON.parse(storedLoans);
+
+    const result =
+      loansSchema.safeParse(parsedLoans);
+
+    if (!result.success) {
+      return getLoans();
+    }
+
+    return result.data;
   } catch {
     return getLoans();
   }

@@ -1,8 +1,23 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useForm, useWatch, } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import type { ChangeEvent } from "react";
+import {
+  Controller,
+  useForm,
+  useWatch,
+} from "react-hook-form";
+
+import {
+  Box,
+  Button,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import Stack from "@mui/material/Stack";
 
 import type { Book } from "../model/types";
 
@@ -148,7 +163,7 @@ function BookForm({
 
 
   function handleCoverChange(
-    event: React.ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>
   ) {
     const file = event.target.files?.[0];
   
@@ -187,204 +202,188 @@ function BookForm({
   }
 
   return (
-    <form
-      className="book-form"
+    <Box
+      component="form"
       onSubmit={handleSubmit(submitForm)}
+      noValidate
     >
-      <label htmlFor="title">
-        {t("books.titleLabel")}
-      </label>
-
-      <input
-        id="title"
-        type="text"
-        placeholder={t("books.titlePlaceholder")}
-        {...register("title")}
-      />
-
-      {errors.title && (
-        <span className="form-error">
-          {errors.title.message}
-        </span>
-      )}
-
-      <label htmlFor="author">
-        {t("books.authorLabel")}
-      </label>
-
-      <input
-        id="author"
-        type="text"
-        placeholder={t("books.authorPlaceholder")}
-        {...register("author")}
-      />
-
-      {errors.author && (
-        <span className="form-error">
-          {errors.author.message}
-        </span>
-      )}
-
-        <label htmlFor="genre">
-          {t("books.genreLabel")}
-        </label>
-
-        <select id="genre" {...register("genre")}>
-          <option value="">
-            {t("books.genrePlaceholder")}
-          </option>
-
-          {genres.map((genre) => (
-            <option key={genre} value={genre}>
-              {t(`books.genres.${genre}`)}
-            </option>
-          ))}
-    </select>
-
-        {errors.genre && (
-          <span className="form-error">
-            {errors.genre.message}
-          </span>
-        )}
-
-
-        <label htmlFor="language">
-          {t("books.languageLabel")}
-        </label>
-
-        <select id="language" {...register("language")}>
-          <option value="">
-            {t("books.languagePlaceholder")}
-          </option>
-
-          {languages.map((language) => (
-            <option key={language} value={language}>
-              {t(`books.languages.${language}`)}
-            </option>
-          ))}
-        </select>
-
-        <label htmlFor="publisher">
-  {t("books.publisherLabel")}
-</label>
-
-<select
-  id="publisher"
-  {...register("publisher")}
->
-  <option value="">
-    {t("books.publisherPlaceholder")}
-  </option>
-
-  {publishers.map((publisher) => (
-    <option
-      key={publisher}
-      value={publisher}
-    >
-      {t(`books.publishers.${publisher}`)}
-    </option>
-  ))}
-</select>
-
-
-{errors.publisher && (
-  <span className="form-error">
-    {errors.publisher.message}
-  </span>
-)}
-
-{selectedPublisher === "other" && (
-  <>
-    <label htmlFor="customPublisher">
-      {t("books.customPublisherLabel")}
-    </label>
-
-    <input
-      id="customPublisher"
-      type="text"
-      placeholder={t("books.customPublisherPlaceholder")}
-      {...register("customPublisher")}
-    />
-  </>
-)}
-
-        
-
-{selectedLanguage === "other" && (
-  <>
-    <label htmlFor="customLanguage">
-      {t("books.customLanguageLabel")}
-    </label>
-
-    <input
-      id="customLanguage"
-      type="text"
-      placeholder={t("books.customLanguagePlaceholder")}
-      {...register("customLanguage")}
-    />
-  </>
-)}
-
-<label htmlFor="cover">
-  {t("books.coverLabel")}
-</label>
-
-<input
-  id="cover"
-  type="file"
-  accept="image/*"
-  onChange={handleCoverChange}
-  style={{ display: "none" }}
-  />
+      <Stack spacing={2}>
+        <TextField
+          label={t("books.titleLabel")}
+          placeholder={t("books.titlePlaceholder")}
+          error={Boolean(errors.title)}
+          helperText={errors.title?.message}
+          fullWidth
+          {...register("title")}
+        />
   
-  <label
-    htmlFor="cover"
-    className="secondary-button"
-    style={{
-      display: "inline-flex",
-      width: "fit-content",
-      cursor: "pointer",
-    }}
-  >
-    {coverUrl
-      ? t("books.changeCover")
-      : t("books.chooseCover")}
-  </label>
-
-{coverUrl && (
-  <img
-    src={coverUrl}
-    alt={t("books.coverPreviewAlt")}
-    style={{
-      width: "140px",
-      height: "190px",
-      objectFit: "cover",
-      borderRadius: "8px",
-    }}
-  />
-)}
-
-
-      <div className="form-actions">
-        <button
-          className="primary-button"
-          type="submit"
+        <TextField
+          label={t("books.authorLabel")}
+          placeholder={t("books.authorPlaceholder")}
+          error={Boolean(errors.author)}
+          helperText={errors.author?.message}
+          fullWidth
+          {...register("author")}
+        />
+  
+        <Controller
+          name="genre"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              select
+              label={t("books.genreLabel")}
+              error={Boolean(errors.genre)}
+              helperText={errors.genre?.message}
+              fullWidth
+            >
+              <MenuItem value="">
+                {t("books.genrePlaceholder")}
+              </MenuItem>
+  
+              {genres.map((genre) => (
+                <MenuItem key={genre} value={genre}>
+                  {t(`books.genres.${genre}`)}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        />
+  
+        <Controller
+          name="language"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              select
+              label={t("books.languageLabel")}
+              error={Boolean(errors.language)}
+              helperText={errors.language?.message}
+              fullWidth
+            >
+              <MenuItem value="">
+                {t("books.languagePlaceholder")}
+              </MenuItem>
+  
+              {languages.map((language) => (
+                <MenuItem key={language} value={language}>
+                  {t(`books.languages.${language}`)}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        />
+  
+        {selectedLanguage === "other" && (
+          <TextField
+            label={t("books.customLanguageLabel")}
+            placeholder={t("books.customLanguagePlaceholder")}
+            fullWidth
+            {...register("customLanguage")}
+          />
+        )}
+  
+        <Controller
+          name="publisher"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              select
+              label={t("books.publisherLabel")}
+              error={Boolean(errors.publisher)}
+              helperText={errors.publisher?.message}
+              fullWidth
+            >
+              <MenuItem value="">
+                {t("books.publisherPlaceholder")}
+              </MenuItem>
+  
+              {publishers.map((publisher) => (
+                <MenuItem key={publisher} value={publisher}>
+                  {t(`books.publishers.${publisher}`)}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        />
+  
+        {selectedPublisher === "other" && (
+          <TextField
+            label={t("books.customPublisherLabel")}
+            placeholder={t("books.customPublisherPlaceholder")}
+            fullWidth
+            {...register("customPublisher")}
+          />
+        )}
+  
+        <Box>
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            {t("books.coverLabel")}
+          </Typography>
+  
+          <Button component="label" variant="outlined">
+            {coverUrl
+              ? t("books.changeCover")
+              : t("books.chooseCover")}
+  
+            <Box
+              component="input"
+              type="file"
+              accept="image/*"
+              onChange={handleCoverChange}
+              sx={{ display: "none" }}
+            />
+          </Button>
+        </Box>
+  
+        {coverUrl && (
+          <Box
+            component="img"
+            src={coverUrl}
+            alt={t("books.coverPreviewAlt")}
+            sx={{
+              width: 140,
+              height: 190,
+              objectFit: "cover",
+              borderRadius: 1,
+            }}
+          />
+        )}
+  
+          <Box
+          sx={{
+            display: "flex",
+            flexDirection: {
+              xs: "column-reverse",
+              sm: "row",
+            },
+            gap: 1.5,
+            justifyContent: "flex-end",
+            pt: 1,
+          }}
         >
-          {initialBook
-            ? t("books.saveChanges")
-            : t("books.addButton")}
-        </button>
-
-        <button
-          className="secondary-button"
-          type="button"
-          onClick={onClose}
-        >
-          {t("common.close")}
-        </button>
-      </div>
-
-    </form>
+          <Button
+            type="button"
+            variant="outlined"
+            onClick={onClose}
+          >
+            {t("common.close")}
+          </Button>
+  
+          <Button
+            type="submit"
+            variant="contained"
+          >
+            {initialBook
+              ? t("books.saveChanges")
+              : t("books.addButton")}
+          </Button>
+        </Box>
+      </Stack>
+    </Box>
   );
 }
 
