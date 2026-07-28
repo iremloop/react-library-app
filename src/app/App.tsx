@@ -100,6 +100,20 @@ function App() {
     setActivePage(newPage);
   }
 
+  function handleDeleteBook(bookId: number) {
+    setBooks((currentBooks) =>
+      currentBooks.filter(
+        (book) => book.id !== bookId,
+      ),
+    );
+  
+    setLoans((currentLoans) =>
+      currentLoans.filter(
+        (loan) => loan.bookId !== bookId,
+      ),
+    );
+  }
+
   return (
     <Box className="app">
       <AppBar
@@ -190,7 +204,7 @@ function App() {
           <BooksPage
             books={books}
             setBooks={setBooks}
-            setLoans={setLoans}
+            onDeleteBook={handleDeleteBook}
           />
         ) : (
           <LoansPage

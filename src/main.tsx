@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import App from "./app/App";
 import { theme } from "./app/styles/theme";
 
-import "./index.css";
+import "./app/styles/index.css";
 import "./app/styles/library.css";
 import "./shared/i18n";
 

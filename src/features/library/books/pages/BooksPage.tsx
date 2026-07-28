@@ -23,12 +23,13 @@ import type { Book } from "../model/types";
 type BooksPageProps = {
   books: Book[];
   setBooks: Dispatch<SetStateAction<Book[]>>;
-  setLoans: unknown;
+  onDeleteBook: (bookId: number) => void;
 };
 
 function BooksPage({
   books,
   setBooks,
+  onDeleteBook,
 }: BooksPageProps) {
   const { t } = useTranslation();
 
@@ -143,17 +144,13 @@ function BooksPage({
     if (!bookToDelete) {
       return;
     }
-
-    setBooks((currentBooks) =>
-      currentBooks.filter(
-        (book) => book.id !== bookToDelete.id
-      )
-    );
-
+  
+    onDeleteBook(bookToDelete.id);
+  
     if (detailsBook?.id === bookToDelete.id) {
       closeBookDetails();
     }
-
+  
     closeDeleteDialog();
   }
 
